@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Fps.h
+
+/home/supremacy/Desktop/code/project/src/Fps.cpp
+iostream
+-
+pthread.h
+-
+unistd.h
+-
+semaphore.h
+-
+memory.h
+-
+Fps.h
+/home/supremacy/Desktop/code/project/src/Fps.h
+

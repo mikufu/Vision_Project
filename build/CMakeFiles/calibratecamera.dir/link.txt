@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -std=c++11   -shared -Wl,-soname,libcalibratecamera.so -o ../lib/libcalibratecamera.so CMakeFiles/calibratecamera.dir/src/CalibrateCamera.cpp.o   -L/usr/local/cuda-11.4/lib64 

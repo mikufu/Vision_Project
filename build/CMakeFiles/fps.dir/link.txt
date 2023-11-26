@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -std=c++11   -shared -Wl,-soname,libfps.so -o ../lib/libfps.so CMakeFiles/fps.dir/src/Fps.cpp.o   -L/usr/local/cuda-11.4/lib64 

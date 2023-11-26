@@ -1,0 +1,2 @@
+/usr/bin/ar qc libgetimg.a  CMakeFiles/getimg.dir/src/GetImg.cpp.o
+/usr/bin/ranlib libgetimg.a

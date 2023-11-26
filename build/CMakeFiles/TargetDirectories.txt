@@ -1,0 +1,4 @@
+/home/supremacy/Desktop/code/project/build/CMakeFiles/edit_cache.dir
+/home/supremacy/Desktop/code/project/build/CMakeFiles/rebuild_cache.dir
+/home/supremacy/Desktop/code/project/build/CMakeFiles/VisionProj.dir
+/home/supremacy/Desktop/code/project/build/CMakeFiles/fps.dir
