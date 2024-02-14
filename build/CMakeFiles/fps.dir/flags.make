@@ -6,5 +6,5 @@ CXX_FLAGS = -std=c++11  -fPIC
 
 CXX_DEFINES = -Dfps_EXPORTS
 
-CXX_INCLUDES = -I/home/supremacy/Desktop/code/project/include 
+CXX_INCLUDES = -I/home/supremacy/Desktop/code/project/inc 
 

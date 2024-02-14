@@ -54,7 +54,6 @@ CMAKE_BINARY_DIR = /home/supremacy/Desktop/code/project/build
 
 # The main recursive "all" target.
 all: CMakeFiles/VisionProj.dir/all
-all: CMakeFiles/fps.dir/all
 
 .PHONY : all
 
@@ -65,7 +64,6 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/VisionProj.dir/clean
-clean: CMakeFiles/fps.dir/clean
 
 .PHONY : clean
 
@@ -73,15 +71,15 @@ clean: CMakeFiles/fps.dir/clean
 # Target rules for target CMakeFiles/VisionProj.dir
 
 # All Build rule for target.
-CMakeFiles/VisionProj.dir/all: CMakeFiles/fps.dir/all
+CMakeFiles/VisionProj.dir/all:
 	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/depend
 	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/supremacy/Desktop/code/project/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target VisionProj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/supremacy/Desktop/code/project/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target VisionProj"
 .PHONY : CMakeFiles/VisionProj.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/VisionProj.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/supremacy/Desktop/code/project/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/supremacy/Desktop/code/project/build/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/VisionProj.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/supremacy/Desktop/code/project/build/CMakeFiles 0
 .PHONY : CMakeFiles/VisionProj.dir/rule
@@ -95,33 +93,6 @@ VisionProj: CMakeFiles/VisionProj.dir/rule
 CMakeFiles/VisionProj.dir/clean:
 	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/clean
 .PHONY : CMakeFiles/VisionProj.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/fps.dir
-
-# All Build rule for target.
-CMakeFiles/fps.dir/all:
-	$(MAKE) -f CMakeFiles/fps.dir/build.make CMakeFiles/fps.dir/depend
-	$(MAKE) -f CMakeFiles/fps.dir/build.make CMakeFiles/fps.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/supremacy/Desktop/code/project/build/CMakeFiles --progress-num=6,7 "Built target fps"
-.PHONY : CMakeFiles/fps.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/fps.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/supremacy/Desktop/code/project/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/fps.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/supremacy/Desktop/code/project/build/CMakeFiles 0
-.PHONY : CMakeFiles/fps.dir/rule
-
-# Convenience name for target.
-fps: CMakeFiles/fps.dir/rule
-
-.PHONY : fps
-
-# clean rule for target.
-CMakeFiles/fps.dir/clean:
-	$(MAKE) -f CMakeFiles/fps.dir/build.make CMakeFiles/fps.dir/clean
-.PHONY : CMakeFiles/fps.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

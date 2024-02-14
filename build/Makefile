@@ -123,49 +123,6 @@ VisionProj/fast:
 	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/build
 .PHONY : VisionProj/fast
 
-#=============================================================================
-# Target rules for targets named fps
-
-# Build rule for target.
-fps: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 fps
-.PHONY : fps
-
-# fast build rule for target.
-fps/fast:
-	$(MAKE) -f CMakeFiles/fps.dir/build.make CMakeFiles/fps.dir/build
-.PHONY : fps/fast
-
-src/Fps.o: src/Fps.cpp.o
-
-.PHONY : src/Fps.o
-
-# target to build an object file
-src/Fps.cpp.o:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/Fps.cpp.o
-	$(MAKE) -f CMakeFiles/fps.dir/build.make CMakeFiles/fps.dir/src/Fps.cpp.o
-.PHONY : src/Fps.cpp.o
-
-src/Fps.i: src/Fps.cpp.i
-
-.PHONY : src/Fps.i
-
-# target to preprocess a source file
-src/Fps.cpp.i:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/Fps.cpp.i
-	$(MAKE) -f CMakeFiles/fps.dir/build.make CMakeFiles/fps.dir/src/Fps.cpp.i
-.PHONY : src/Fps.cpp.i
-
-src/Fps.s: src/Fps.cpp.s
-
-.PHONY : src/Fps.s
-
-# target to generate assembly for a file
-src/Fps.cpp.s:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/Fps.cpp.s
-	$(MAKE) -f CMakeFiles/fps.dir/build.make CMakeFiles/fps.dir/src/Fps.cpp.s
-.PHONY : src/Fps.cpp.s
-
 src/GetImg.o: src/GetImg.cpp.o
 
 .PHONY : src/GetImg.o
@@ -220,6 +177,60 @@ src/ProcImg.cpp.s:
 	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/ProcImg.cpp.s
 .PHONY : src/ProcImg.cpp.s
 
+src/inference.o: src/inference.cpp.o
+
+.PHONY : src/inference.o
+
+# target to build an object file
+src/inference.cpp.o:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/inference.cpp.o
+.PHONY : src/inference.cpp.o
+
+src/inference.i: src/inference.cpp.i
+
+.PHONY : src/inference.i
+
+# target to preprocess a source file
+src/inference.cpp.i:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/inference.cpp.i
+.PHONY : src/inference.cpp.i
+
+src/inference.s: src/inference.cpp.s
+
+.PHONY : src/inference.s
+
+# target to generate assembly for a file
+src/inference.cpp.s:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/inference.cpp.s
+.PHONY : src/inference.cpp.s
+
+src/logger.o: src/logger.cpp.o
+
+.PHONY : src/logger.o
+
+# target to build an object file
+src/logger.cpp.o:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/logger.cpp.o
+.PHONY : src/logger.cpp.o
+
+src/logger.i: src/logger.cpp.i
+
+.PHONY : src/logger.i
+
+# target to preprocess a source file
+src/logger.cpp.i:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/logger.cpp.i
+.PHONY : src/logger.cpp.i
+
+src/logger.s: src/logger.cpp.s
+
+.PHONY : src/logger.s
+
+# target to generate assembly for a file
+src/logger.cpp.s:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/logger.cpp.s
+.PHONY : src/logger.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -256,16 +267,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... VisionProj"
-	@echo "... fps"
-	@echo "... src/Fps.o"
-	@echo "... src/Fps.i"
-	@echo "... src/Fps.s"
 	@echo "... src/GetImg.o"
 	@echo "... src/GetImg.i"
 	@echo "... src/GetImg.s"
 	@echo "... src/ProcImg.o"
 	@echo "... src/ProcImg.i"
 	@echo "... src/ProcImg.s"
+	@echo "... src/inference.o"
+	@echo "... src/inference.i"
+	@echo "... src/inference.s"
+	@echo "... src/logger.o"
+	@echo "... src/logger.i"
+	@echo "... src/logger.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "C/C++: g++ VisionProj",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/inc",
+                "/usr/local/include/opencv4",
+                "/usr/local/cuda/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/g++",
+            "cStandard": "c17",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}

@@ -16,6 +16,7 @@ PROJECT(VisionProj)
 
 # 是应用命令查找opencv库
 find_package(OpenCV REQUIRED) #寻找opencv
+find_package(CUDA REQUIRED) # 寻找CUDA
 
 # message(STATUS "OpenCV library status:")
 # message(STATUS "    version: ${OpenCV_VERSION}")
@@ -24,22 +25,24 @@ find_package(OpenCV REQUIRED) #寻找opencv
 
 # 4.头文件
 include_directories(
-    ${OpenCV_INCLUE_DIRS} 
-    ${PROJECT_SOURCE_DIR}/include
+    ${OpenCV_INCLUE_DIRS}
+    ${CUDA_INCLUDE_DIRS}
+    ${PROJECT_SOURCE_DIR}/inc
     ) #添加opencv头文件
 
 # 5.通过设定SRC变量，将源代码路径都给SRC，如果有多个，可以直接在后面添加
 set(SRC
     ${PROJECT_SOURCE_DIR}/src/main.cpp
     ${PROJECT_SOURCE_DIR}/src/GetImg.cpp
-    ${PROJECT_SOURCE_DIR}/src/Fps.cpp
     ${PROJECT_SOURCE_DIR}/src/ProcImg.cpp
+    ${PROJECT_SOURCE_DIR}/src/inference.cpp
+    ${PROJECT_SOURCE_DIR}/src/logger.cpp
     )
 
 # 6.创建共享库/静态库
 # 设置路径（下面生成共享库路径）
 # 即生成的共享库在工程文件夹下的lib文件夹中
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+# set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 
 # 创建共享库（把工程内的cpp文件都创建成共享库文件，方便通过头文件调用）
 # ${PROJECT_NAME}是生成的库名，表示生成的共享库文件就叫做lib工程名.so
@@ -49,9 +52,6 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 # set(LIBGETIMG_SRC ${PROJECT_SOURCE_DIR}/src/GetImg.cpp)   # GetImg
 # add_library(getimg SHARED ${LIBGETIMG_SRC})
 
-set(LIBFPS_SRC ${PROJECT_SOURCE_DIR}/src/Fps.cpp)   # Fps
-add_library(fps SHARED ${LIBFPS_SRC})
-
 # set(LIBCALIBRATECAMERA_SRC ${PROJECT_SOURCE_DIR}/src/CalibrateCamera.cpp)   # CalibrateCamera
 # add_library(calibratecamera SHARED ${LIBCALIBRATECAMERA_SRC})
 
@@ -60,8 +60,8 @@ add_library(fps SHARED ${LIBFPS_SRC})
 # 如果需要链接其他的动态库，-l后接去除lib前缀和.so后缀的名称，以链接
 # libpthread.so 为例,-lpthread
 #target_link_libraries(${LIB_NAME} pthread dl)
-link_directories(${PROJECT_SOURCE_DIR}/lib)
-set(LIBNAME gxiapi pthread fps)
+link_directories(${PROJECT_SOURCE_DIR}/lib /usr/local/cuda/lib64)
+set(LIBNAME gxiapi cudart cublas nvinfer)
 
 # 8. 编译主函数，生成可执行文件
 # 先设置路径
