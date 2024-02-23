@@ -32,11 +32,11 @@ include_directories(
 
 # 5.通过设定SRC变量，将源代码路径都给SRC，如果有多个，可以直接在后面添加
 set(SRC
-    ${PROJECT_SOURCE_DIR}/src/main.cpp
-    ${PROJECT_SOURCE_DIR}/src/GetImg.cpp
-    ${PROJECT_SOURCE_DIR}/src/ProcImg.cpp
-    ${PROJECT_SOURCE_DIR}/src/inference.cpp
     ${PROJECT_SOURCE_DIR}/src/logger.cpp
+    ${PROJECT_SOURCE_DIR}/src/GetImg.cpp
+    ${PROJECT_SOURCE_DIR}/src/inference.cpp
+    ${PROJECT_SOURCE_DIR}/src/ProcImg.cpp
+    ${PROJECT_SOURCE_DIR}/src/main.cpp
     )
 
 # 6.创建共享库/静态库
@@ -61,7 +61,7 @@ set(SRC
 # libpthread.so 为例,-lpthread
 #target_link_libraries(${LIB_NAME} pthread dl)
 link_directories(${PROJECT_SOURCE_DIR}/lib /usr/local/cuda/lib64)
-set(LIBNAME gxiapi cudart cublas nvinfer)
+set(LIBNAME gxiapi cudart cublas nvinfer pthread)
 
 # 8. 编译主函数，生成可执行文件
 # 先设置路径

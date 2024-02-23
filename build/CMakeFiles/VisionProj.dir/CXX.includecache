@@ -37,7 +37,15 @@ Windows.h
 -
 
 ../inc/ProcImg.h
+iostream
+-
 chrono
+-
+thread
+-
+mutex
+-
+condition_variable
 -
 opencv2/opencv.hpp
 -
@@ -106,9 +114,17 @@ string
 ProcImg.h
 /home/supremacy/Desktop/code/project/src/ProcImg.h
 
-/home/supremacy/Desktop/code/project/src/inference.cpp
-inference.h
-/home/supremacy/Desktop/code/project/src/inference.h
+/home/supremacy/Desktop/code/project/src/main.cpp
+iostream
+-
+opencv2/opencv.hpp
+-
+opencv2/cudaimgproc.hpp
+-
+cuda_runtime.h
+-
+ProcImg.h
+/home/supremacy/Desktop/code/project/src/ProcImg.h
 
 /usr/local/cuda-11.4/include/builtin_types.h
 device_types.h

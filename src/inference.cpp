@@ -1,9 +1,10 @@
 #include "inference.h"
 
-inference::inference(const int img_width, const int img_height)
+inference::inference(const int width, const int height): 
+    img_width(width), img_height(height)
 {
     // load engine模型
-    std::string engineFilename = "../res/armo_pose_200n_sim.engine";
+    std::string engineFilename = "../res/armo_pose_200n_sim_fp16.engine";
     std::ifstream engineFile(engineFilename, std::ios::binary);
     assert(!engineFile.fail());
     engineFile.seekg(0, std::ios::end);
@@ -33,7 +34,9 @@ inference::inference(const int img_width, const int img_height)
     assert(this->context);
 
     // 创建cuda流
+    assert(cudaStreamCreate(&this->ToD_stream) == cudaSuccess);
     assert(cudaStreamCreate(&this->infer_stream) == cudaSuccess);
+    assert(cudaStreamCreate(&this->ToH_stream) == cudaSuccess);
 
     // 设置输入输出层
     for (int i = 0; i < this->mEngine->getNbIOTensors(); ++i)
@@ -46,7 +49,7 @@ inference::inference(const int img_width, const int img_height)
         // Allocate CUDA memory
         this->IO_Buf[i] = nullptr;
         assert(cudaMalloc(&this->IO_Buf[i], this->IO_Size[i]) == cudaSuccess);
-        // this->context->setTensorAddress(this->IO_Name[i], this->IO_Buf[i]);
+        this->context->setTensorAddress(this->IO_Name[i], this->IO_Buf[i]);
     }
 
     // 设置缩放因子
@@ -59,48 +62,49 @@ inference::inference(const int img_width, const int img_height)
         cv::Scalar color(rand() % 256, rand() % 256, rand() % 256);
         this->palette.emplace_back(color);
     }
-
-    // 为host_output开辟空间，用于存放结果
-    this->output_data = new float[this->IO_Size[1] / sizeof(float)];
-
-    // Run TensorRT inference
-    // assert(this->context->enqueueV3(this->infer_stream));
 }
 
 inference::~inference()
 {
-    delete this->output_data;
+    // delete this->output_data;
     cudaFree(this->IO_Buf[0]);
     cudaFree(this->IO_Buf[1]);
-    // delete this->mEngine;
-    // delete this->runtime;
-    // delete this->context;
+    // 关闭cuda流
+    cudaStreamSynchronize(this->ToD_stream);
     cudaStreamSynchronize(this->infer_stream);
+    cudaStreamSynchronize(this->ToH_stream);
+    cudaStreamDestroy(this->ToD_stream);
     cudaStreamDestroy(this->infer_stream);
+    cudaStreamDestroy(this->ToH_stream);
 }
 
-void inference::predict(cv::Mat img)
+float *inference::predict(void *input_data)
 {
-    img.copyTo(this->img_result);
-    auto mfloat = this->preprocess(img);
-    auto input_data = mfloat.ptr<void>();
+    // 在host上开辟内存存放结果
+    float *output_data = new float[this->IO_Size[1] / sizeof(float)];
 
     // Copy image data to device
+#ifdef CPU_PREPROCESS
     assert(cudaMemcpyAsync(this->IO_Buf[0], input_data, this->IO_Size[0],
-                           cudaMemcpyDeviceToDevice, this->infer_stream) == cudaSuccess);
+                           cudaMemcpyHostToDevice, this->ToD_stream) == cudaSuccess);
+#endif
+
+#ifdef GPU_PREPROCESS
+    assert(cudaMemcpyAsync(this->IO_Buf[0], input_data, this->IO_Size[0],
+                           cudaMemcpyDeviceToDevice, this->ToD_stream) == cudaSuccess);
+#endif
 
     // inference
-    assert(this->context->executeV2(IO_Buf));
+    assert(this->context->enqueueV3(this->infer_stream));
 
-    // Copy predictions from output binding memory
-    assert(cudaMemcpyAsync(this->output_data, this->IO_Buf[1], this->IO_Size[1],
-                           cudaMemcpyDeviceToHost, this->infer_stream) == cudaSuccess);
+    // Copy predictions from device to host
+    assert(cudaMemcpyAsync(output_data, this->IO_Buf[1], this->IO_Size[1],
+                           cudaMemcpyDeviceToHost, this->ToH_stream) == cudaSuccess);
 
-    postprocess();
-    // this->drawplot();
+    return output_data;
 }
 
-cv::cuda::GpuMat inference::preprocess(cv::Mat img)
+cv::cuda::GpuMat inference::GPU_preprocess(cv::Mat img)
 {
     // 将图片变为letter box
     cv::cuda::Stream preproc_stream;
@@ -129,7 +133,33 @@ cv::cuda::GpuMat inference::preprocess(cv::Mat img)
     return mfloat;
 }
 
-void inference::postprocess()
+cv::Mat inference::CPU_preprocess(cv::Mat img)
+{
+    // 将图片变为letter box
+    int unpad_w = this->r * img.cols;
+    int unpad_h = this->r * img.rows;
+    cv::Mat re(unpad_h, unpad_w, CV_8UC3);
+    cv::resize(img, re, re.size());
+    cv::Mat letterbox(input_height, input_width, CV_8UC3, cv::Scalar(128, 128, 128));
+    re.copyTo(letterbox(cv::Rect((input_width - re.cols) / 2, (input_height - re.rows) / 2, re.cols, re.rows)));
+
+    // 转换成(b, c, h, w)(NCHW)类型
+    int channel_size = input_width * input_height;
+    cv::Mat dst(1, channel_size * input_channel, CV_8U);
+    std::vector<cv::Mat> channels{
+        cv::Mat(letterbox.size(), CV_8U, &dst.ptr(0)[0]),
+        cv::Mat(letterbox.size(), CV_8U, &dst.ptr(0)[channel_size]),
+        cv::Mat(letterbox.size(), CV_8U, &dst.ptr(0)[channel_size * 2])
+    };
+    cv::cvtColor(letterbox, letterbox, cv::COLOR_BGR2RGB);
+    split(letterbox, channels);   // HWC -> CHW
+    cv::Mat mfloat;
+    dst.convertTo(mfloat, CV_32F, 1 / 255.f);
+
+    return mfloat;
+}
+
+void inference::postprocess(float *output_data)
 {
     // 获得所有输出的结果
     std::vector<armo_classes> classes_ids;
@@ -142,7 +172,7 @@ void inference::postprocess()
         int class_id;
         for (int i = 4; i < 18; i++)
         {
-            float conf = *(this->output_data + cols * i + j);
+            float conf = *(output_data + cols * i + j);
             if (max_conf < conf)
             {
                 max_conf = conf;
@@ -155,12 +185,12 @@ void inference::postprocess()
             scores.emplace_back(max_conf);                    // 置信度
 
             cv::Rect bbox; // 物体检测框
-            float x0 = (input_width - r * this->img_result.cols) / 2.0;
-            float y0 = (input_height -r * this->img_result.rows) / 2.0;
-            float x = *(this->output_data + j) - x0;
-            float y = *(this->output_data + j + cols) - y0;
-            float w = *(this->output_data + j + cols * 2);
-            float h = *(this->output_data + j + cols * 3);
+            float x0 = (input_width - r * this->img_width) / 2.0;
+            float y0 = (input_height -r * this->img_height) / 2.0;
+            float x = *(output_data + j) - x0;
+            float y = *(output_data + j + cols) - y0;
+            float w = *(output_data + j + cols * 2);
+            float h = *(output_data + j + cols * 3);
             bbox.x = int((x - w / 2) / this->r);
             bbox.y = int((y - h / 2) / this->r);
             bbox.width = int(w / this->r);
@@ -169,20 +199,20 @@ void inference::postprocess()
 
             std::vector<cv::Point> kpoint; // 关键点
             cv::Point lt;
-            lt.x = int((*(this->output_data + j + cols * 18) - x0) / this->r);
-            lt.y = int((*(this->output_data + j + cols * 19) - y0) / this->r);
+            lt.x = int((*(output_data + j + cols * 18) - x0) / this->r);
+            lt.y = int((*(output_data + j + cols * 19) - y0) / this->r);
             kpoint.push_back(lt);
             cv::Point lb;
-            lb.x = int((*(this->output_data + j + cols * 20) - x0) / this->r);
-            lb.y = int((*(this->output_data + j + cols * 21) - y0) / this->r);
+            lb.x = int((*(output_data + j + cols * 20) - x0) / this->r);
+            lb.y = int((*(output_data + j + cols * 21) - y0) / this->r);
             kpoint.push_back(lb);
             cv::Point rb;
-            rb.x = int((*(this->output_data + j + cols * 22) - x0) / this->r);
-            rb.y = int((*(this->output_data + j + cols * 23) - y0) / this->r);
+            rb.x = int((*(output_data + j + cols * 22) - x0) / this->r);
+            rb.y = int((*(output_data + j + cols * 23) - y0) / this->r);
             kpoint.push_back(rb);
             cv::Point rt;
-            rt.x = int((*(this->output_data + j + cols * 24) - x0) / this->r);
-            rt.y = int((*(this->output_data + j + cols * 25) - y0) / this->r);
+            rt.x = int((*(output_data + j + cols * 24) - x0) / this->r);
+            rt.y = int((*(output_data + j + cols * 25) - y0) / this->r);
             kpoint.push_back(rt);
             kpoints.push_back(kpoint);
         }
@@ -205,13 +235,14 @@ void inference::postprocess()
     }
 }
 
-void inference::drawplot()
+void inference::drawplot(cv::Mat &output, std::vector<result> res)
 {
-    int size = this->results.size();
+
+    int size = res.size();
     for (int i = 0; i < size; i++)
     {
         std::string armo; // 类别
-        switch (results[i].class_id)
+        switch (res[i].class_id)
         {
         case B1:
             armo = "B1";
@@ -256,25 +287,25 @@ void inference::drawplot()
             armo = "RS";
             break;
         }
-        float conf = results[i].conf;                      // 置信度
-        cv::Rect bbox = results[i].bbox;                   // 检测框
-        std::vector<cv::Point> kpoint = results[i].kpoint; // 关键点
+        float conf = res[i].conf;                      // 置信度
+        cv::Rect bbox = res[i].bbox;                   // 检测框
+        std::vector<cv::Point> kpoint = res[i].kpoint; // 关键点
         // 绘制结果
-        cv::Scalar color = palette[results[i].class_id];
-        cv::rectangle(this->img_result, bbox, color, 2); // 检测框
+        cv::Scalar color = palette[res[i].class_id];
+        cv::rectangle(output, bbox, color, 2); // 检测框
         for (int j = 0; j < nk; j++)               // 关键点
         {
-            cv::circle(this->img_result, results[i].kpoint[j], 3, color, -1);
+            cv::circle(output, res[i].kpoint[j], 3, color, -1);
         }
         std::string label = armo + " : " + std::to_string(conf).substr(0, 4);
         int *baseline;
         cv::Size label_size = cv::getTextSize(label, cv::FONT_HERSHEY_SIMPLEX, 0.5, 1, baseline);
         int label_x = bbox.x;
         int label_y = bbox.y - 10 > label_size.height ? bbox.y - 10 : bbox.y + 10;
-        cv::rectangle(this->img_result, cv::Point(label_x, label_y - label_size.height),
+        cv::rectangle(output, cv::Point(label_x, label_y - label_size.height),
                       cv::Point(label_x + label_size.width, label_y + label_size.height),
                       color, cv::FILLED);
-        cv::putText(this->img_result, label, cv::Point(label_x, label_y),
+        cv::putText(output, label, cv::Point(label_x, label_y),
                     cv::FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv::LINE_AA);
     }
 }
@@ -282,9 +313,4 @@ void inference::drawplot()
 std::vector<result> inference::get_results()
 {
     return this->results;
-}
-
-cv::Mat inference::get_img_result()
-{
-    return this->img_result;
 }

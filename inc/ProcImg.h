@@ -1,7 +1,11 @@
 #ifndef __PROCIMG_H_
 #define __PROCIMG_H_
 
+#include <iostream>
 #include <chrono>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/cuda.hpp>
 #include <opencv2/cudaimgproc.hpp>
@@ -9,15 +13,14 @@
 #include "GetImg.h"
 #include "inference.h"
 
+#define SHOW_OUTPUT
+#define SHOW_FPS
+// #define TIME
+
 // using this class to process image
 class ProcImg
 {
 private:
-    cv::Mat image;  // 原图
-    cv::cuda::GpuMat gpu_image;
-    cv::Mat output; // 结果图
-    cv::cuda::GpuMat gpu_output;;
-
     GetImg GI;      // 获得图片的类
 
     int step;       // 用于计算FPS
@@ -27,17 +30,20 @@ private:
 
     inference *infer;    // 用于推理
 
-    cv::cuda::Stream stream;    // cuda流
+    bool quit;  // 判断是否退出
 
 public:
     ProcImg();
 
     ~ProcImg();
 
-    void process();   // preprocess image
-private:
+    void readFrame();  // 用于采集图片和处理
 
-    void show();   // show result
+    void predictFrame();   // 用于推理
+
+    void getResult();   // 获得结果
+
+    void show();    // 显示结果
 };
 
 #endif

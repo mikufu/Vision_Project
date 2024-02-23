@@ -57,18 +57,18 @@ include CMakeFiles/VisionProj.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/VisionProj.dir/flags.make
 
-CMakeFiles/VisionProj.dir/src/main.cpp.o: CMakeFiles/VisionProj.dir/flags.make
-CMakeFiles/VisionProj.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/supremacy/Desktop/code/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/VisionProj.dir/src/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VisionProj.dir/src/main.cpp.o -c /home/supremacy/Desktop/code/project/src/main.cpp
+CMakeFiles/VisionProj.dir/src/logger.cpp.o: CMakeFiles/VisionProj.dir/flags.make
+CMakeFiles/VisionProj.dir/src/logger.cpp.o: ../src/logger.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/supremacy/Desktop/code/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/VisionProj.dir/src/logger.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VisionProj.dir/src/logger.cpp.o -c /home/supremacy/Desktop/code/project/src/logger.cpp
 
-CMakeFiles/VisionProj.dir/src/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VisionProj.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/supremacy/Desktop/code/project/src/main.cpp > CMakeFiles/VisionProj.dir/src/main.cpp.i
+CMakeFiles/VisionProj.dir/src/logger.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VisionProj.dir/src/logger.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/supremacy/Desktop/code/project/src/logger.cpp > CMakeFiles/VisionProj.dir/src/logger.cpp.i
 
-CMakeFiles/VisionProj.dir/src/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VisionProj.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/supremacy/Desktop/code/project/src/main.cpp -o CMakeFiles/VisionProj.dir/src/main.cpp.s
+CMakeFiles/VisionProj.dir/src/logger.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VisionProj.dir/src/logger.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/supremacy/Desktop/code/project/src/logger.cpp -o CMakeFiles/VisionProj.dir/src/logger.cpp.s
 
 CMakeFiles/VisionProj.dir/src/GetImg.cpp.o: CMakeFiles/VisionProj.dir/flags.make
 CMakeFiles/VisionProj.dir/src/GetImg.cpp.o: ../src/GetImg.cpp
@@ -83,22 +83,9 @@ CMakeFiles/VisionProj.dir/src/GetImg.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VisionProj.dir/src/GetImg.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/supremacy/Desktop/code/project/src/GetImg.cpp -o CMakeFiles/VisionProj.dir/src/GetImg.cpp.s
 
-CMakeFiles/VisionProj.dir/src/ProcImg.cpp.o: CMakeFiles/VisionProj.dir/flags.make
-CMakeFiles/VisionProj.dir/src/ProcImg.cpp.o: ../src/ProcImg.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/supremacy/Desktop/code/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/VisionProj.dir/src/ProcImg.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VisionProj.dir/src/ProcImg.cpp.o -c /home/supremacy/Desktop/code/project/src/ProcImg.cpp
-
-CMakeFiles/VisionProj.dir/src/ProcImg.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VisionProj.dir/src/ProcImg.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/supremacy/Desktop/code/project/src/ProcImg.cpp > CMakeFiles/VisionProj.dir/src/ProcImg.cpp.i
-
-CMakeFiles/VisionProj.dir/src/ProcImg.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VisionProj.dir/src/ProcImg.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/supremacy/Desktop/code/project/src/ProcImg.cpp -o CMakeFiles/VisionProj.dir/src/ProcImg.cpp.s
-
 CMakeFiles/VisionProj.dir/src/inference.cpp.o: CMakeFiles/VisionProj.dir/flags.make
 CMakeFiles/VisionProj.dir/src/inference.cpp.o: ../src/inference.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/supremacy/Desktop/code/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/VisionProj.dir/src/inference.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/supremacy/Desktop/code/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/VisionProj.dir/src/inference.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VisionProj.dir/src/inference.cpp.o -c /home/supremacy/Desktop/code/project/src/inference.cpp
 
 CMakeFiles/VisionProj.dir/src/inference.cpp.i: cmake_force
@@ -109,35 +96,48 @@ CMakeFiles/VisionProj.dir/src/inference.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VisionProj.dir/src/inference.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/supremacy/Desktop/code/project/src/inference.cpp -o CMakeFiles/VisionProj.dir/src/inference.cpp.s
 
-CMakeFiles/VisionProj.dir/src/logger.cpp.o: CMakeFiles/VisionProj.dir/flags.make
-CMakeFiles/VisionProj.dir/src/logger.cpp.o: ../src/logger.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/supremacy/Desktop/code/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/VisionProj.dir/src/logger.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VisionProj.dir/src/logger.cpp.o -c /home/supremacy/Desktop/code/project/src/logger.cpp
+CMakeFiles/VisionProj.dir/src/ProcImg.cpp.o: CMakeFiles/VisionProj.dir/flags.make
+CMakeFiles/VisionProj.dir/src/ProcImg.cpp.o: ../src/ProcImg.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/supremacy/Desktop/code/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/VisionProj.dir/src/ProcImg.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VisionProj.dir/src/ProcImg.cpp.o -c /home/supremacy/Desktop/code/project/src/ProcImg.cpp
 
-CMakeFiles/VisionProj.dir/src/logger.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VisionProj.dir/src/logger.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/supremacy/Desktop/code/project/src/logger.cpp > CMakeFiles/VisionProj.dir/src/logger.cpp.i
+CMakeFiles/VisionProj.dir/src/ProcImg.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VisionProj.dir/src/ProcImg.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/supremacy/Desktop/code/project/src/ProcImg.cpp > CMakeFiles/VisionProj.dir/src/ProcImg.cpp.i
 
-CMakeFiles/VisionProj.dir/src/logger.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VisionProj.dir/src/logger.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/supremacy/Desktop/code/project/src/logger.cpp -o CMakeFiles/VisionProj.dir/src/logger.cpp.s
+CMakeFiles/VisionProj.dir/src/ProcImg.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VisionProj.dir/src/ProcImg.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/supremacy/Desktop/code/project/src/ProcImg.cpp -o CMakeFiles/VisionProj.dir/src/ProcImg.cpp.s
+
+CMakeFiles/VisionProj.dir/src/main.cpp.o: CMakeFiles/VisionProj.dir/flags.make
+CMakeFiles/VisionProj.dir/src/main.cpp.o: ../src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/supremacy/Desktop/code/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/VisionProj.dir/src/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VisionProj.dir/src/main.cpp.o -c /home/supremacy/Desktop/code/project/src/main.cpp
+
+CMakeFiles/VisionProj.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VisionProj.dir/src/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/supremacy/Desktop/code/project/src/main.cpp > CMakeFiles/VisionProj.dir/src/main.cpp.i
+
+CMakeFiles/VisionProj.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VisionProj.dir/src/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/supremacy/Desktop/code/project/src/main.cpp -o CMakeFiles/VisionProj.dir/src/main.cpp.s
 
 # Object files for target VisionProj
 VisionProj_OBJECTS = \
-"CMakeFiles/VisionProj.dir/src/main.cpp.o" \
+"CMakeFiles/VisionProj.dir/src/logger.cpp.o" \
 "CMakeFiles/VisionProj.dir/src/GetImg.cpp.o" \
-"CMakeFiles/VisionProj.dir/src/ProcImg.cpp.o" \
 "CMakeFiles/VisionProj.dir/src/inference.cpp.o" \
-"CMakeFiles/VisionProj.dir/src/logger.cpp.o"
+"CMakeFiles/VisionProj.dir/src/ProcImg.cpp.o" \
+"CMakeFiles/VisionProj.dir/src/main.cpp.o"
 
 # External object files for target VisionProj
 VisionProj_EXTERNAL_OBJECTS =
 
-../bin/VisionProj: CMakeFiles/VisionProj.dir/src/main.cpp.o
-../bin/VisionProj: CMakeFiles/VisionProj.dir/src/GetImg.cpp.o
-../bin/VisionProj: CMakeFiles/VisionProj.dir/src/ProcImg.cpp.o
-../bin/VisionProj: CMakeFiles/VisionProj.dir/src/inference.cpp.o
 ../bin/VisionProj: CMakeFiles/VisionProj.dir/src/logger.cpp.o
+../bin/VisionProj: CMakeFiles/VisionProj.dir/src/GetImg.cpp.o
+../bin/VisionProj: CMakeFiles/VisionProj.dir/src/inference.cpp.o
+../bin/VisionProj: CMakeFiles/VisionProj.dir/src/ProcImg.cpp.o
+../bin/VisionProj: CMakeFiles/VisionProj.dir/src/main.cpp.o
 ../bin/VisionProj: CMakeFiles/VisionProj.dir/build.make
 ../bin/VisionProj: /usr/local/lib/libopencv_gapi.so.4.7.0
 ../bin/VisionProj: /usr/local/lib/libopencv_stitching.so.4.7.0

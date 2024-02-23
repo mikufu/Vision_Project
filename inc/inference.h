@@ -1,6 +1,9 @@
 #ifndef __INFERENCE_H_
 #define __INFERENCE_H_
 
+#define CPU_PREPROCESS
+// #define GPU_PREPROCESS
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -64,7 +67,9 @@ private:
     nvinfer1::IRuntime *runtime;
     nvinfer1::ICudaEngine *mEngine;
     nvinfer1::IExecutionContext *context;
+    cudaStream_t ToD_stream;
     cudaStream_t infer_stream;
+    cudaStream_t ToH_stream;
     // 输入层和输出层
     const char *IO_Name[2];
     size_t IO_Size[2];
@@ -72,32 +77,30 @@ private:
     float r;
     // 检测结果容器
     std::vector<result> results;
-    // 绘制结果
-    cv::Mat img_result;
     // 调色盘
     std::vector<cv::Scalar> palette;
     // CUDA memory for input & output
     void *IO_Buf[2];
-    // 用于存放推理结果
-    float *output_data;
+    // 处理图片的W、H
+    int img_width;
+    int img_height;
 
 public:
-    inference(const int img_height, const int img_width);
+    inference(const int height, const int width);
 
     ~inference();
 
-    void predict(cv::Mat img);  // 预测
+    float *predict(void *input_data);  // 预测
 
     std::vector<result> get_results();  // 获得所有结果
 
-    cv::Mat get_img_result();   // 获得绘制结果
+    cv::cuda::GpuMat GPU_preprocess(cv::Mat img); // 将图片处理成NCWH格式
 
-private:
-    cv::cuda::GpuMat preprocess(cv::Mat img); // 将图片处理成输入格式
+    cv::Mat CPU_preprocess(cv::Mat img);
 
-    void postprocess();   // 处理输出结果
+    void postprocess(float *output_data);   // 处理输出结果
 
-    void drawplot();    // 绘制结果
+    void drawplot(cv::Mat &output, std::vector<result> res);    // 绘制结果
 };
 
 #endif

@@ -72,6 +72,8 @@
         "unordered_set": "cpp",
         "__node_handle": "cpp",
         "queue": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "typeindex": "cpp",
+        "variant": "cpp"
     }
 }
