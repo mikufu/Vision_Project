@@ -6,5 +6,5 @@ CXX_FLAGS = -std=c++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/local/cuda-11.4/include -I/home/supremacy/Desktop/code/project/inc -isystem /usr/local/include/opencv4 
+CXX_INCLUDES = -I/usr/local/cuda-11.4/include -I/home/supremacy/Desktop/code/project/inc -I/home/supremacy/Desktop/code/project/inc/camera -I/home/supremacy/Desktop/code/project/inc/infer -I/home/supremacy/Desktop/code/project/inc/solver -I/home/supremacy/Desktop/code/project/inc/serial -isystem /usr/local/include/opencv4 
 

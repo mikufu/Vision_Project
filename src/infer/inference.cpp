@@ -165,7 +165,7 @@ void inference::postprocess(float *output_data)
     std::vector<armo_classes> classes_ids;
     std::vector<float> scores;
     std::vector<cv::Rect> bboxes;
-    std::vector<std::vector<cv::Point>> kpoints;
+    std::vector<std::vector<cv::Point2f>> kpointss;
     for (int j = 0; (j < cols); j++)
     {
         float max_conf = 0.0f;
@@ -184,37 +184,37 @@ void inference::postprocess(float *output_data)
             classes_ids.emplace_back((armo_classes)class_id); // 类别
             scores.emplace_back(max_conf);                    // 置信度
 
-            cv::Rect bbox; // 物体检测框
+            cv::Rect2f bbox; // 物体检测框
             float x0 = (input_width - r * this->img_width) / 2.0;
             float y0 = (input_height -r * this->img_height) / 2.0;
             float x = *(output_data + j) - x0;
             float y = *(output_data + j + cols) - y0;
             float w = *(output_data + j + cols * 2);
             float h = *(output_data + j + cols * 3);
-            bbox.x = int((x - w / 2) / this->r);
-            bbox.y = int((y - h / 2) / this->r);
-            bbox.width = int(w / this->r);
-            bbox.height = int(h / this->r);
+            bbox.x = (x - w / 2) / this->r;
+            bbox.y = (y - h / 2) / this->r;
+            bbox.width = w / this->r;
+            bbox.height = h / this->r;
             bboxes.emplace_back(bbox);
 
-            std::vector<cv::Point> kpoint; // 关键点
-            cv::Point lt;
-            lt.x = int((*(output_data + j + cols * 18) - x0) / this->r);
-            lt.y = int((*(output_data + j + cols * 19) - y0) / this->r);
-            kpoint.push_back(lt);
-            cv::Point lb;
-            lb.x = int((*(output_data + j + cols * 20) - x0) / this->r);
-            lb.y = int((*(output_data + j + cols * 21) - y0) / this->r);
-            kpoint.push_back(lb);
-            cv::Point rb;
-            rb.x = int((*(output_data + j + cols * 22) - x0) / this->r);
-            rb.y = int((*(output_data + j + cols * 23) - y0) / this->r);
-            kpoint.push_back(rb);
-            cv::Point rt;
-            rt.x = int((*(output_data + j + cols * 24) - x0) / this->r);
-            rt.y = int((*(output_data + j + cols * 25) - y0) / this->r);
-            kpoint.push_back(rt);
-            kpoints.push_back(kpoint);
+            std::vector<cv::Point2f> kpoints; // 关键点
+            cv::Point2f lt;
+            lt.x = (*(output_data + j + cols * 18) - x0) / this->r;
+            lt.y = (*(output_data + j + cols * 19) - y0) / this->r;
+            kpoints.push_back(lt);
+            cv::Point2f lb;
+            lb.x = (*(output_data + j + cols * 20) - x0) / this->r;
+            lb.y = (*(output_data + j + cols * 21) - y0) / this->r;
+            kpoints.push_back(lb);
+            cv::Point2f rb;
+            rb.x = (*(output_data + j + cols * 22) - x0) / this->r;
+            rb.y = (*(output_data + j + cols * 23) - y0) / this->r;
+            kpoints.push_back(rb);
+            cv::Point2f rt;
+            rt.x = (*(output_data + j + cols * 24) - x0) / this->r;
+            rt.y = (*(output_data + j + cols * 25) - y0) / this->r;
+            kpoints.push_back(rt);
+            kpointss.push_back(kpoints);
         }
     }
     // 筛选检测结果
@@ -230,7 +230,7 @@ void inference::postprocess(float *output_data)
         res.class_id = classes_ids[idx];
         res.conf = scores[idx];
         res.bbox = bboxes[idx];
-        res.kpoint = kpoints[idx];
+        res.kpoints = kpointss[idx];
         this->results.emplace_back(res);
     }
 }
@@ -288,14 +288,14 @@ void inference::drawplot(cv::Mat &output, std::vector<result> res)
             break;
         }
         float conf = res[i].conf;                      // 置信度
-        cv::Rect bbox = res[i].bbox;                   // 检测框
-        std::vector<cv::Point> kpoint = res[i].kpoint; // 关键点
+        cv::Rect2f bbox = res[i].bbox;                   // 检测框
+        std::vector<cv::Point2f> kpoints = res[i].kpoints; // 关键点
         // 绘制结果
         cv::Scalar color = palette[res[i].class_id];
         cv::rectangle(output, bbox, color, 2); // 检测框
         for (int j = 0; j < nk; j++)               // 关键点
         {
-            cv::circle(output, res[i].kpoint[j], 3, color, -1);
+            cv::circle(output, res[i].kpoints[j], 3, color, -1);
         }
         std::string label = armo + " : " + std::to_string(conf).substr(0, 4);
         int *baseline;

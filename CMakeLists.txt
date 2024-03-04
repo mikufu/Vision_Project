@@ -28,15 +28,22 @@ include_directories(
     ${OpenCV_INCLUE_DIRS}
     ${CUDA_INCLUDE_DIRS}
     ${PROJECT_SOURCE_DIR}/inc
+    ${PROJECT_SOURCE_DIR}/inc/camera
+    ${PROJECT_SOURCE_DIR}/inc/infer
+    ${PROJECT_SOURCE_DIR}/inc/solver
+    ${PROJECT_SOURCE_DIR}/inc/serial
     ) #添加opencv头文件
 
 # 5.通过设定SRC变量，将源代码路径都给SRC，如果有多个，可以直接在后面添加
 set(SRC
-    ${PROJECT_SOURCE_DIR}/src/logger.cpp
-    ${PROJECT_SOURCE_DIR}/src/GetImg.cpp
-    ${PROJECT_SOURCE_DIR}/src/inference.cpp
+    ${PROJECT_SOURCE_DIR}/src/camera/GetImg.cpp
+    ${PROJECT_SOURCE_DIR}/src/infer/logger.cpp
+    ${PROJECT_SOURCE_DIR}/src/infer/inference.cpp
+    ${PROJECT_SOURCE_DIR}/src/solver/SelectTarget.cpp
+    ${PROJECT_SOURCE_DIR}/src/solver/SolvePosition.cpp
+    ${PROJECT_SOURCE_DIR}/src/serial/Serial.cpp
     ${PROJECT_SOURCE_DIR}/src/ProcImg.cpp
-    ${PROJECT_SOURCE_DIR}/src/main.cpp
+    ${PROJECT_SOURCE_DIR}/main.cpp
     )
 
 # 6.创建共享库/静态库

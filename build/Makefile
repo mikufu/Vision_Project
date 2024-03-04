@@ -123,32 +123,32 @@ VisionProj/fast:
 	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/build
 .PHONY : VisionProj/fast
 
-src/GetImg.o: src/GetImg.cpp.o
+main.o: main.cpp.o
 
-.PHONY : src/GetImg.o
+.PHONY : main.o
 
 # target to build an object file
-src/GetImg.cpp.o:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/GetImg.cpp.o
-.PHONY : src/GetImg.cpp.o
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/main.cpp.o
+.PHONY : main.cpp.o
 
-src/GetImg.i: src/GetImg.cpp.i
+main.i: main.cpp.i
 
-.PHONY : src/GetImg.i
+.PHONY : main.i
 
 # target to preprocess a source file
-src/GetImg.cpp.i:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/GetImg.cpp.i
-.PHONY : src/GetImg.cpp.i
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/main.cpp.i
+.PHONY : main.cpp.i
 
-src/GetImg.s: src/GetImg.cpp.s
+main.s: main.cpp.s
 
-.PHONY : src/GetImg.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-src/GetImg.cpp.s:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/GetImg.cpp.s
-.PHONY : src/GetImg.cpp.s
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/main.cpp.s
+.PHONY : main.cpp.s
 
 src/ProcImg.o: src/ProcImg.cpp.o
 
@@ -177,86 +177,167 @@ src/ProcImg.cpp.s:
 	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/ProcImg.cpp.s
 .PHONY : src/ProcImg.cpp.s
 
-src/inference.o: src/inference.cpp.o
+src/camera/GetImg.o: src/camera/GetImg.cpp.o
 
-.PHONY : src/inference.o
-
-# target to build an object file
-src/inference.cpp.o:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/inference.cpp.o
-.PHONY : src/inference.cpp.o
-
-src/inference.i: src/inference.cpp.i
-
-.PHONY : src/inference.i
-
-# target to preprocess a source file
-src/inference.cpp.i:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/inference.cpp.i
-.PHONY : src/inference.cpp.i
-
-src/inference.s: src/inference.cpp.s
-
-.PHONY : src/inference.s
-
-# target to generate assembly for a file
-src/inference.cpp.s:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/inference.cpp.s
-.PHONY : src/inference.cpp.s
-
-src/logger.o: src/logger.cpp.o
-
-.PHONY : src/logger.o
+.PHONY : src/camera/GetImg.o
 
 # target to build an object file
-src/logger.cpp.o:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/logger.cpp.o
-.PHONY : src/logger.cpp.o
+src/camera/GetImg.cpp.o:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/camera/GetImg.cpp.o
+.PHONY : src/camera/GetImg.cpp.o
 
-src/logger.i: src/logger.cpp.i
+src/camera/GetImg.i: src/camera/GetImg.cpp.i
 
-.PHONY : src/logger.i
+.PHONY : src/camera/GetImg.i
 
 # target to preprocess a source file
-src/logger.cpp.i:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/logger.cpp.i
-.PHONY : src/logger.cpp.i
+src/camera/GetImg.cpp.i:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/camera/GetImg.cpp.i
+.PHONY : src/camera/GetImg.cpp.i
 
-src/logger.s: src/logger.cpp.s
+src/camera/GetImg.s: src/camera/GetImg.cpp.s
 
-.PHONY : src/logger.s
+.PHONY : src/camera/GetImg.s
 
 # target to generate assembly for a file
-src/logger.cpp.s:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/logger.cpp.s
-.PHONY : src/logger.cpp.s
+src/camera/GetImg.cpp.s:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/camera/GetImg.cpp.s
+.PHONY : src/camera/GetImg.cpp.s
 
-src/main.o: src/main.cpp.o
+src/infer/inference.o: src/infer/inference.cpp.o
 
-.PHONY : src/main.o
+.PHONY : src/infer/inference.o
 
 # target to build an object file
-src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
+src/infer/inference.cpp.o:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/infer/inference.cpp.o
+.PHONY : src/infer/inference.cpp.o
 
-src/main.i: src/main.cpp.i
+src/infer/inference.i: src/infer/inference.cpp.i
 
-.PHONY : src/main.i
+.PHONY : src/infer/inference.i
 
 # target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
+src/infer/inference.cpp.i:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/infer/inference.cpp.i
+.PHONY : src/infer/inference.cpp.i
 
-src/main.s: src/main.cpp.s
+src/infer/inference.s: src/infer/inference.cpp.s
 
-.PHONY : src/main.s
+.PHONY : src/infer/inference.s
 
 # target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
+src/infer/inference.cpp.s:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/infer/inference.cpp.s
+.PHONY : src/infer/inference.cpp.s
+
+src/infer/logger.o: src/infer/logger.cpp.o
+
+.PHONY : src/infer/logger.o
+
+# target to build an object file
+src/infer/logger.cpp.o:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/infer/logger.cpp.o
+.PHONY : src/infer/logger.cpp.o
+
+src/infer/logger.i: src/infer/logger.cpp.i
+
+.PHONY : src/infer/logger.i
+
+# target to preprocess a source file
+src/infer/logger.cpp.i:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/infer/logger.cpp.i
+.PHONY : src/infer/logger.cpp.i
+
+src/infer/logger.s: src/infer/logger.cpp.s
+
+.PHONY : src/infer/logger.s
+
+# target to generate assembly for a file
+src/infer/logger.cpp.s:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/infer/logger.cpp.s
+.PHONY : src/infer/logger.cpp.s
+
+src/serial/Serial.o: src/serial/Serial.cpp.o
+
+.PHONY : src/serial/Serial.o
+
+# target to build an object file
+src/serial/Serial.cpp.o:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/serial/Serial.cpp.o
+.PHONY : src/serial/Serial.cpp.o
+
+src/serial/Serial.i: src/serial/Serial.cpp.i
+
+.PHONY : src/serial/Serial.i
+
+# target to preprocess a source file
+src/serial/Serial.cpp.i:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/serial/Serial.cpp.i
+.PHONY : src/serial/Serial.cpp.i
+
+src/serial/Serial.s: src/serial/Serial.cpp.s
+
+.PHONY : src/serial/Serial.s
+
+# target to generate assembly for a file
+src/serial/Serial.cpp.s:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/serial/Serial.cpp.s
+.PHONY : src/serial/Serial.cpp.s
+
+src/solver/SelectTarget.o: src/solver/SelectTarget.cpp.o
+
+.PHONY : src/solver/SelectTarget.o
+
+# target to build an object file
+src/solver/SelectTarget.cpp.o:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/solver/SelectTarget.cpp.o
+.PHONY : src/solver/SelectTarget.cpp.o
+
+src/solver/SelectTarget.i: src/solver/SelectTarget.cpp.i
+
+.PHONY : src/solver/SelectTarget.i
+
+# target to preprocess a source file
+src/solver/SelectTarget.cpp.i:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/solver/SelectTarget.cpp.i
+.PHONY : src/solver/SelectTarget.cpp.i
+
+src/solver/SelectTarget.s: src/solver/SelectTarget.cpp.s
+
+.PHONY : src/solver/SelectTarget.s
+
+# target to generate assembly for a file
+src/solver/SelectTarget.cpp.s:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/solver/SelectTarget.cpp.s
+.PHONY : src/solver/SelectTarget.cpp.s
+
+src/solver/SolvePosition.o: src/solver/SolvePosition.cpp.o
+
+.PHONY : src/solver/SolvePosition.o
+
+# target to build an object file
+src/solver/SolvePosition.cpp.o:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/solver/SolvePosition.cpp.o
+.PHONY : src/solver/SolvePosition.cpp.o
+
+src/solver/SolvePosition.i: src/solver/SolvePosition.cpp.i
+
+.PHONY : src/solver/SolvePosition.i
+
+# target to preprocess a source file
+src/solver/SolvePosition.cpp.i:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/solver/SolvePosition.cpp.i
+.PHONY : src/solver/SolvePosition.cpp.i
+
+src/solver/SolvePosition.s: src/solver/SolvePosition.cpp.s
+
+.PHONY : src/solver/SolvePosition.s
+
+# target to generate assembly for a file
+src/solver/SolvePosition.cpp.s:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/solver/SolvePosition.cpp.s
+.PHONY : src/solver/SolvePosition.cpp.s
 
 # Help Target
 help:
@@ -267,21 +348,30 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... VisionProj"
-	@echo "... src/GetImg.o"
-	@echo "... src/GetImg.i"
-	@echo "... src/GetImg.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 	@echo "... src/ProcImg.o"
 	@echo "... src/ProcImg.i"
 	@echo "... src/ProcImg.s"
-	@echo "... src/inference.o"
-	@echo "... src/inference.i"
-	@echo "... src/inference.s"
-	@echo "... src/logger.o"
-	@echo "... src/logger.i"
-	@echo "... src/logger.s"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
+	@echo "... src/camera/GetImg.o"
+	@echo "... src/camera/GetImg.i"
+	@echo "... src/camera/GetImg.s"
+	@echo "... src/infer/inference.o"
+	@echo "... src/infer/inference.i"
+	@echo "... src/infer/inference.s"
+	@echo "... src/infer/logger.o"
+	@echo "... src/infer/logger.i"
+	@echo "... src/infer/logger.s"
+	@echo "... src/serial/Serial.o"
+	@echo "... src/serial/Serial.i"
+	@echo "... src/serial/Serial.s"
+	@echo "... src/solver/SelectTarget.o"
+	@echo "... src/solver/SelectTarget.i"
+	@echo "... src/solver/SelectTarget.s"
+	@echo "... src/solver/SolvePosition.o"
+	@echo "... src/solver/SolvePosition.i"
+	@echo "... src/solver/SolvePosition.s"
 .PHONY : help
 
 

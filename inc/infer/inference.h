@@ -1,9 +1,6 @@
 #ifndef __INFERENCE_H_
 #define __INFERENCE_H_
 
-#define CPU_PREPROCESS
-// #define GPU_PREPROCESS
-
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -17,6 +14,9 @@
 #include "NvInfer.h"
 #include "NvInferRuntimeCommon.h"
 #include "logger.h"
+
+#define CPU_PREPROCESS
+// #define GPU_PREPROCESS
 
 // 输入张量属性
 const int input_height = 640;
@@ -52,13 +52,13 @@ enum armo_classes   // 装甲板类别
     RS
 };
 
-struct result
+typedef struct
 {
     armo_classes class_id;         // 类别
     float conf;                    // 置信度
-    cv::Rect bbox;                 // 检测框
-    std::vector<cv::Point> kpoint; // 关键点
-};
+    cv::Rect2f bbox;                 // 检测框
+    std::vector<cv::Point2f> kpoints; // 关键点
+}result;
 
 class inference
 {
