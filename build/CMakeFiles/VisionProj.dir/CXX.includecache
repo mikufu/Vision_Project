@@ -23,16 +23,28 @@ opencv2/cudaimgproc.hpp
 -
 opencv2/cudawarping.hpp
 -
-GetImg.h
-../inc/GetImg.h
-inference.h
-../inc/inference.h
+Config.h
+../inc/Config.h
+DHCamera.hpp
+../inc/DHCamera.hpp
+Inference.hpp
+../inc/Inference.hpp
 SelectTarget.hpp
 ../inc/SelectTarget.hpp
 SolvePosition.hpp
 ../inc/SolvePosition.hpp
-Serial.h
-../inc/Serial.h
+Serial.hpp
+../inc/Serial.hpp
+
+../inc/camera/DHCamera.hpp
+iostream
+-
+opencv2/core/mat.hpp
+-
+GxIAPI.h
+../inc/camera/GxIAPI.h
+DxImageProc.h
+../inc/camera/DxImageProc.h
 
 ../inc/camera/DxImageProc.h
 stdafx.h
@@ -41,16 +53,6 @@ stdlib.h
 -
 string.h
 -
-
-../inc/camera/GetImg.h
-iostream
--
-opencv2/opencv.hpp
--
-GxIAPI.h
-../inc/camera/GxIAPI.h
-DxImageProc.h
-../inc/camera/DxImageProc.h
 
 ../inc/camera/GxIAPI.h
 stdint.h
@@ -64,7 +66,15 @@ stddef.h
 Windows.h
 -
 
-../inc/infer/inference.h
+../inc/config/Config.h
+iostream
+-
+opencv2/core/mat.hpp
+-
+opencv2/core/persistence.hpp
+-
+
+../inc/inference/Inference.hpp
 iostream
 -
 fstream
@@ -75,7 +85,7 @@ memory
 -
 numeric
 -
-opencv2/opencv.hpp
+opencv2/core/mat.hpp
 -
 opencv2/cudawarping.hpp
 -
@@ -86,19 +96,21 @@ opencv2/cudaimgproc.hpp
 cuda_runtime.h
 -
 NvInfer.h
-../inc/infer/NvInfer.h
+../inc/inference/NvInfer.h
 NvInferRuntimeCommon.h
-../inc/infer/NvInferRuntimeCommon.h
+../inc/inference/NvInferRuntimeCommon.h
 logger.h
-../inc/infer/logger.h
+../inc/inference/logger.h
+Config.h
+../inc/inference/Config.h
 
-../inc/infer/logger.h
+../inc/inference/logger.h
 logging.h
-../inc/infer/logging.h
+../inc/inference/logging.h
 
-../inc/infer/logging.h
+../inc/inference/logging.h
 NvInferRuntimeCommon.h
-../inc/infer/NvInferRuntimeCommon.h
+../inc/inference/NvInferRuntimeCommon.h
 cassert
 -
 ctime
@@ -114,7 +126,9 @@ sstream
 string
 -
 
-../inc/serial/Serial.h
+../inc/serial/Serial.hpp
+iostream
+-
 sys/types.h
 -
 unistd.h
@@ -125,18 +139,14 @@ fcntl.h
 -
 termios.h
 -
-stdio.h
--
-stdlib.h
--
 errno.h
 -
 sys/ioctl.h
 -
 
 ../inc/solver/SelectTarget.hpp
-inference.h
-../inc/solver/inference.h
+Inference.hpp
+../inc/solver/Inference.hpp
 
 ../inc/solver/SolvePosition.hpp
 iostream
@@ -144,11 +154,27 @@ iostream
 opencv2/core/mat.hpp
 -
 
+/home/supremacy/Desktop/code/project/main.cpp
+iostream
+-
+opencv2/opencv.hpp
+-
+opencv2/cudaimgproc.hpp
+-
+cuda_runtime.h
+-
+ProcImg.h
+/home/supremacy/Desktop/code/project/ProcImg.h
+
 /home/supremacy/Desktop/code/project/src/ProcImg.cpp
 ProcImg.h
 /home/supremacy/Desktop/code/project/src/ProcImg.h
 opencv2/opencv.hpp
 -
+
+/home/supremacy/Desktop/code/project/src/camera/DHCamera.cpp
+DHCamera.hpp
+/home/supremacy/Desktop/code/project/src/camera/DHCamera.hpp
 
 /usr/local/cuda-11.4/include/builtin_types.h
 device_types.h

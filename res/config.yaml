@@ -1,0 +1,38 @@
+%YAML:1.0
+---
+# 串口设备
+Serial Device: /dev/ttyCH341USB0
+# 敌方 0-蓝方 1-红方
+Enermy: 0
+# 相机参数矩阵
+Camera Matrix: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [ 1.8030876310498020e+03, 0., 6.9128288001664430e+02, 0.,
+       1.7998407509402280e+03, 5.6391316670348465e+02, 0., 0., 1. ]
+DistCoeffs: !!opencv-matrix
+   rows: 1
+   cols: 5
+   dt: d
+   data: [ -1.8187853193542980e-01, 2.1402179919891591e+00,
+       -2.5962556825794791e-03, -4.2279441813821818e-03,
+       -1.6146561529860669e+01 ]
+# 坐标变换矩阵
+Rotation Matrix Camera To PTZ: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [ -1., 0., 0., 0., -1., 0., 0., 0., 1. ]
+Transform Matrix Camera To PTZ: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [ 0., 0., 0. ]
+# 大装甲板id 从0开始一次为 B1 B2 B3 B4 B5 BO BS ...
+Large Armo ID: [ 0, 7 ]
+# 推理后处理的置信度和NMS阈值
+Confidence Threshold: 0.5
+NMS Threshold: 0.5
+# 模型地址
+Engine File Path: "/home/supremacy/Desktop/code/project/res/armo_pose_400n_fp16.engine"

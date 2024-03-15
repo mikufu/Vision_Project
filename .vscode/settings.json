@@ -74,6 +74,8 @@
         "queue": "cpp",
         "stack": "cpp",
         "typeindex": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "ios": "cpp",
+        "shared_mutex": "cpp"
     }
 }

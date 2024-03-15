@@ -74,12 +74,12 @@ clean: CMakeFiles/VisionProj.dir/clean
 CMakeFiles/VisionProj.dir/all:
 	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/depend
 	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/supremacy/Desktop/code/project/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9 "Built target VisionProj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/supremacy/Desktop/code/project/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target VisionProj"
 .PHONY : CMakeFiles/VisionProj.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/VisionProj.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/supremacy/Desktop/code/project/build/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/supremacy/Desktop/code/project/build/CMakeFiles 10
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/VisionProj.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/supremacy/Desktop/code/project/build/CMakeFiles 0
 .PHONY : CMakeFiles/VisionProj.dir/rule

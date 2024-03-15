@@ -177,86 +177,113 @@ src/ProcImg.cpp.s:
 	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/ProcImg.cpp.s
 .PHONY : src/ProcImg.cpp.s
 
-src/camera/GetImg.o: src/camera/GetImg.cpp.o
+src/camera/DHCamera.o: src/camera/DHCamera.cpp.o
 
-.PHONY : src/camera/GetImg.o
-
-# target to build an object file
-src/camera/GetImg.cpp.o:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/camera/GetImg.cpp.o
-.PHONY : src/camera/GetImg.cpp.o
-
-src/camera/GetImg.i: src/camera/GetImg.cpp.i
-
-.PHONY : src/camera/GetImg.i
-
-# target to preprocess a source file
-src/camera/GetImg.cpp.i:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/camera/GetImg.cpp.i
-.PHONY : src/camera/GetImg.cpp.i
-
-src/camera/GetImg.s: src/camera/GetImg.cpp.s
-
-.PHONY : src/camera/GetImg.s
-
-# target to generate assembly for a file
-src/camera/GetImg.cpp.s:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/camera/GetImg.cpp.s
-.PHONY : src/camera/GetImg.cpp.s
-
-src/infer/inference.o: src/infer/inference.cpp.o
-
-.PHONY : src/infer/inference.o
+.PHONY : src/camera/DHCamera.o
 
 # target to build an object file
-src/infer/inference.cpp.o:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/infer/inference.cpp.o
-.PHONY : src/infer/inference.cpp.o
+src/camera/DHCamera.cpp.o:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/camera/DHCamera.cpp.o
+.PHONY : src/camera/DHCamera.cpp.o
 
-src/infer/inference.i: src/infer/inference.cpp.i
+src/camera/DHCamera.i: src/camera/DHCamera.cpp.i
 
-.PHONY : src/infer/inference.i
+.PHONY : src/camera/DHCamera.i
 
 # target to preprocess a source file
-src/infer/inference.cpp.i:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/infer/inference.cpp.i
-.PHONY : src/infer/inference.cpp.i
+src/camera/DHCamera.cpp.i:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/camera/DHCamera.cpp.i
+.PHONY : src/camera/DHCamera.cpp.i
 
-src/infer/inference.s: src/infer/inference.cpp.s
+src/camera/DHCamera.s: src/camera/DHCamera.cpp.s
 
-.PHONY : src/infer/inference.s
+.PHONY : src/camera/DHCamera.s
 
 # target to generate assembly for a file
-src/infer/inference.cpp.s:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/infer/inference.cpp.s
-.PHONY : src/infer/inference.cpp.s
+src/camera/DHCamera.cpp.s:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/camera/DHCamera.cpp.s
+.PHONY : src/camera/DHCamera.cpp.s
 
-src/infer/logger.o: src/infer/logger.cpp.o
+src/config/Config.o: src/config/Config.cpp.o
 
-.PHONY : src/infer/logger.o
+.PHONY : src/config/Config.o
 
 # target to build an object file
-src/infer/logger.cpp.o:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/infer/logger.cpp.o
-.PHONY : src/infer/logger.cpp.o
+src/config/Config.cpp.o:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/config/Config.cpp.o
+.PHONY : src/config/Config.cpp.o
 
-src/infer/logger.i: src/infer/logger.cpp.i
+src/config/Config.i: src/config/Config.cpp.i
 
-.PHONY : src/infer/logger.i
+.PHONY : src/config/Config.i
 
 # target to preprocess a source file
-src/infer/logger.cpp.i:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/infer/logger.cpp.i
-.PHONY : src/infer/logger.cpp.i
+src/config/Config.cpp.i:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/config/Config.cpp.i
+.PHONY : src/config/Config.cpp.i
 
-src/infer/logger.s: src/infer/logger.cpp.s
+src/config/Config.s: src/config/Config.cpp.s
 
-.PHONY : src/infer/logger.s
+.PHONY : src/config/Config.s
 
 # target to generate assembly for a file
-src/infer/logger.cpp.s:
-	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/infer/logger.cpp.s
-.PHONY : src/infer/logger.cpp.s
+src/config/Config.cpp.s:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/config/Config.cpp.s
+.PHONY : src/config/Config.cpp.s
+
+src/inference/Inference.o: src/inference/Inference.cpp.o
+
+.PHONY : src/inference/Inference.o
+
+# target to build an object file
+src/inference/Inference.cpp.o:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/inference/Inference.cpp.o
+.PHONY : src/inference/Inference.cpp.o
+
+src/inference/Inference.i: src/inference/Inference.cpp.i
+
+.PHONY : src/inference/Inference.i
+
+# target to preprocess a source file
+src/inference/Inference.cpp.i:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/inference/Inference.cpp.i
+.PHONY : src/inference/Inference.cpp.i
+
+src/inference/Inference.s: src/inference/Inference.cpp.s
+
+.PHONY : src/inference/Inference.s
+
+# target to generate assembly for a file
+src/inference/Inference.cpp.s:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/inference/Inference.cpp.s
+.PHONY : src/inference/Inference.cpp.s
+
+src/inference/logger.o: src/inference/logger.cpp.o
+
+.PHONY : src/inference/logger.o
+
+# target to build an object file
+src/inference/logger.cpp.o:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/inference/logger.cpp.o
+.PHONY : src/inference/logger.cpp.o
+
+src/inference/logger.i: src/inference/logger.cpp.i
+
+.PHONY : src/inference/logger.i
+
+# target to preprocess a source file
+src/inference/logger.cpp.i:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/inference/logger.cpp.i
+.PHONY : src/inference/logger.cpp.i
+
+src/inference/logger.s: src/inference/logger.cpp.s
+
+.PHONY : src/inference/logger.s
+
+# target to generate assembly for a file
+src/inference/logger.cpp.s:
+	$(MAKE) -f CMakeFiles/VisionProj.dir/build.make CMakeFiles/VisionProj.dir/src/inference/logger.cpp.s
+.PHONY : src/inference/logger.cpp.s
 
 src/serial/Serial.o: src/serial/Serial.cpp.o
 
@@ -354,15 +381,18 @@ help:
 	@echo "... src/ProcImg.o"
 	@echo "... src/ProcImg.i"
 	@echo "... src/ProcImg.s"
-	@echo "... src/camera/GetImg.o"
-	@echo "... src/camera/GetImg.i"
-	@echo "... src/camera/GetImg.s"
-	@echo "... src/infer/inference.o"
-	@echo "... src/infer/inference.i"
-	@echo "... src/infer/inference.s"
-	@echo "... src/infer/logger.o"
-	@echo "... src/infer/logger.i"
-	@echo "... src/infer/logger.s"
+	@echo "... src/camera/DHCamera.o"
+	@echo "... src/camera/DHCamera.i"
+	@echo "... src/camera/DHCamera.s"
+	@echo "... src/config/Config.o"
+	@echo "... src/config/Config.i"
+	@echo "... src/config/Config.s"
+	@echo "... src/inference/Inference.o"
+	@echo "... src/inference/Inference.i"
+	@echo "... src/inference/Inference.s"
+	@echo "... src/inference/logger.o"
+	@echo "... src/inference/logger.i"
+	@echo "... src/inference/logger.s"
 	@echo "... src/serial/Serial.o"
 	@echo "... src/serial/Serial.i"
 	@echo "... src/serial/Serial.s"

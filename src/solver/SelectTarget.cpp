@@ -5,7 +5,7 @@ bool target::select(const std::vector<result> &results)
     int idx = -1;
     float max_area = 0.0;
     // 找到最近的或者倾斜最小的装甲板
-    if(ENERMY)  // 筛选红方
+    if(enermy)  // 筛选红方
     {
         for (int i = 0; i < results.size(); i++)
         {
@@ -70,22 +70,18 @@ bool target::anti_switch(const std::vector<result> &results, int idx)
         this->tg = results[idx];
         if (tg.class_id != last_tg.class_id)
         {
-            if (switch_cnt++ == MAX_COUNT)
+            if (++switch_cnt % MAX_COUNT == 0)
             {
                 last_tg = tg;   // 切换目标
             }
             else if (is_find == true)
             {
-                tg = last_tg;
+                tg.class_id = last_tg.class_id;
             }
             else
             {
                 last_tg = tg;
             }
-        }
-        if (tg.class_id == last_tg.class_id && switch_cnt != 0)
-        {
-            switch_cnt = 0;
         }
         is_find = true;
 
@@ -93,13 +89,9 @@ bool target::anti_switch(const std::vector<result> &results, int idx)
     }
     else    // 未找到目标
     {
-        if (is_find == false && switch_cnt != 0)
-        {
-            switch_cnt = 0;
-        }
         if (is_find == true)
         {
-            if (switch_cnt++ == MAX_COUNT)
+            if (++switch_cnt % MAX_COUNT == 0)
             {
                 is_find = false;
             }

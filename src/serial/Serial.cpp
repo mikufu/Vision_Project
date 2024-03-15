@@ -1,25 +1,23 @@
-#include "Serial.h"
-
-serial_port::serial_port()
-{
-    fd = open(SERIAL_DEV, O_RDWR | O_NOCTTY | O_NDELAY);  // 打开设备
-
-    speed = BAUD;   // 波特率
-    databits = 8;   // 数据位
-    stopbits = 1;   // 停止位
-    parity = 's';   // 奇偶校验位
-}
+#include "Serial.hpp"
+#include "Config.h"
 
 serial_port::~serial_port()
 {
     close(fd);
 }
 
-bool serial_port::init_serial()
+bool serial_port::Init()
 {
+    fd = open(serial_dev.c_str(), O_RDWR | O_NOCTTY | O_NDELAY);  // 打开设备
+
+    speed = BAUD;   // 波特率
+    databits = 8;   // 数据位
+    stopbits = 1;   // 停止位
+    parity = 's';   // 奇偶校验位
+
     if (fd == -1)
     {
-        perror(SERIAL_DEV);
+        perror(serial_dev.c_str());
         return false;
     }
 
@@ -47,6 +45,11 @@ void serial_port::sendData(const Serial_Data &data)
         bytes = 15;
 
     write(fd, t_data, bytes);
+}
+
+void serial_port::readData()
+{
+
 }
 
 bool serial_port::set_Baud()
@@ -152,7 +155,7 @@ bool serial_port::set_Bit()
         termios_p.c_iflag |= INPCK;
     
     tcflush(fd, TCIFLUSH);  // 清除输入缓冲区
-    termios_p.c_cc[VTIME] = 150;    // 设置超时 15s
+    termios_p.c_cc[VTIME] = 0;    // 设置超时 0s
     termios_p.c_cc[VMIN] = 0;   // 设置最小接受字符
     termios_p.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);   // input原始输入
     termios_p.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
@@ -195,6 +198,7 @@ void serial_port::transformData()
         t_data[14] = 0xFF;
     }
 
+#ifdef SERIAL_DEBUG
     if (t_data[1] == 0)
     {
         for (int i = 0; i < 3; i++)
@@ -210,4 +214,5 @@ void serial_port::transformData()
         }
     }
     printf("\n");
+#endif
 }

@@ -22,13 +22,13 @@ int main()
 
 #ifdef SHOW_OUTPUT
     std::thread t_show(&ProcImg::show, std::ref(PI));   // 显示结果
-
     t_show.join();
 #endif
 
     t1.join();
     t2.join();
     t3.join();
+    // t4.join();
 
     return 0;
 }

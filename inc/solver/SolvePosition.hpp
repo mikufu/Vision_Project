@@ -17,6 +17,7 @@ private:
     std::vector<cv::Point3f> S_pos; // 小装甲板三维坐标
     std::vector<cv::Point2f> points2d;  // 二维坐标
     std::vector<cv::Point3f> points3d;  // 三维坐标
+    std::vector<int> large_id;   // 大装甲板id
     int id; // 装甲板类型
     cv::Mat rot;    // 世界坐标系到相机坐标系的旋转矩阵
     cv::Mat trans;  // 位移矩阵
@@ -24,11 +25,21 @@ private:
     cv::Mat rot_camera2PTZ; // 相机坐标系到云台坐标系的旋转矩阵
     cv::Mat trans_camera2PTZ;   // 相机到云台的位移矩阵
     cv::Mat PTZ_coord;  // 云台坐标
-    float pitch;    // 云台pitch轴
     float yaw;  // 云台yaw轴
+    float pitch;    // 云台pitch轴
 
 public:
-    solvePos();
+    solvePos(cv::Mat cameraMatrix, cv::Mat distCoeffs, 
+                cv::Mat rot_camera2PTZ, cv::Mat trans_camera2PTZ, std::vector<int> large_id = {0, 7}):
+    cameraMatrix(cameraMatrix), 
+    distCoeffs(distCoeffs),
+    rot_camera2PTZ(rot_camera2PTZ),
+    trans_camera2PTZ(trans_camera2PTZ),
+    large_id(large_id)
+    {
+    };
+
+    void Init();
 
     std::vector<float> getAngle(const std::vector<cv::Point2f> &image_points, int class_id);
 

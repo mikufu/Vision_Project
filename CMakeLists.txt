@@ -29,16 +29,18 @@ include_directories(
     ${CUDA_INCLUDE_DIRS}
     ${PROJECT_SOURCE_DIR}/inc
     ${PROJECT_SOURCE_DIR}/inc/camera
-    ${PROJECT_SOURCE_DIR}/inc/infer
+    ${PROJECT_SOURCE_DIR}/inc/inference
     ${PROJECT_SOURCE_DIR}/inc/solver
     ${PROJECT_SOURCE_DIR}/inc/serial
+    ${PROJECT_SOURCE_DIR}/inc/config
     ) #添加opencv头文件
 
 # 5.通过设定SRC变量，将源代码路径都给SRC，如果有多个，可以直接在后面添加
 set(SRC
-    ${PROJECT_SOURCE_DIR}/src/camera/GetImg.cpp
-    ${PROJECT_SOURCE_DIR}/src/infer/logger.cpp
-    ${PROJECT_SOURCE_DIR}/src/infer/inference.cpp
+    ${PROJECT_SOURCE_DIR}/src/config/Config.cpp
+    ${PROJECT_SOURCE_DIR}/src/camera/DHCamera.cpp
+    ${PROJECT_SOURCE_DIR}/src/inference/logger.cpp
+    ${PROJECT_SOURCE_DIR}/src/inference/Inference.cpp
     ${PROJECT_SOURCE_DIR}/src/solver/SelectTarget.cpp
     ${PROJECT_SOURCE_DIR}/src/solver/SolvePosition.cpp
     ${PROJECT_SOURCE_DIR}/src/serial/Serial.cpp
