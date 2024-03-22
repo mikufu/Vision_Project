@@ -21,18 +21,29 @@ bool DHCam::Init()
     status = GXOpenDeviceByIndex(1, &hDevice);
     GX_VERIFY(status, "GXOpenDeviceByIndex(1, &hDevice)");
 
-    // // 使能帧存覆盖
+    // 使能帧存覆盖
     // status = GXSetBool(hDevice, GX_BOOL_FRAMESTORE_COVER_ACTIVE, true);
     // GX_VERIFY(status, "GXSetBool(hDevice, GX_BOOL_FRAMESTORE_COVER_ACTIVE, true)");
 
-    // 使能采集帧率调节模式
-    status = GXSetEnum(hDevice, GX_ENUM_ACQUISITION_FRAME_RATE_MODE ,
-                    GX_ACQUISITION_FRAME_RATE_MODE_ON);
-    GX_VERIFY(status, "GXSetEnum(hDevice, GX_ENUM_ACQUISITION_FRAME_RATE_MODE , \
-                    GX_ACQUISITION_FRAME_RATE_MODE_ON)");
+    // 设置有效宽度
+    // status = GXSetInt(hDevice, GX_INT_SENSOR_WIDTH, 640);
+    // GX_VERIFY(status, "GXSetInt(hDevice, GX_INT_SENSOR_WIDTH, 640)");
 
-    // status = GXSetInt(hDevice, GX_INT_ACQUISITION_SPEED_LEVEL, 10000);
-    // GX_VERIFY(status, "GXSetInt(hDevice, GX_INT_ACQUISITION_SPEED_LEVEL, 10000)");
+    // 设置图片宽度
+    status = GXSetInt(hDevice, GX_INT_WIDTH, width);
+    GX_VERIFY(status, "GXSetInt(hDevice, GX_INT_WIDTH, width)");
+
+    // 设置有效高度
+    // status = GXSetInt(hDevice, GX_INT_SENSOR_HEIGHT, 480);
+    // GX_VERIFY(status, "GXSetInt(hDevice, GX_INT_SENSOR_DEIGHT, 480)");
+
+    // 设置图片高度
+    status = GXSetInt(hDevice, GX_INT_HEIGHT, height);
+    GX_VERIFY(status, "GXSetInt(hDevice, GX_INT_HEIGHT, height)");
+
+    // 设置获取速率
+    // status = GXSetInt(hDevice, GX_INT_ACQUISITION_SPEED_LEVEL, 1000);
+    // GX_VERIFY(status, "GXSetInt(hDevice, GX_INT_ACQUISITION_SPEED_LEVEL, 1000)");
 
     // 设置曝光时间
     status = GXSetFloat(hDevice, GX_FLOAT_EXPOSURE_TIME, dExposureTime);
@@ -42,9 +53,36 @@ bool DHCam::Init()
     status = GXSetFloat(hDevice, GX_FLOAT_GAIN, dGain);
     GX_VERIFY(status, "GXSetFloat(hDevice, GX_FLOAT_GAIN, dGain)");
 
+    // 使能采集帧率调节模式
+    status = GXSetEnum(hDevice, GX_ENUM_ACQUISITION_FRAME_RATE_MODE ,
+                    GX_ACQUISITION_FRAME_RATE_MODE_ON);
+    GX_VERIFY(status, "GXSetEnum(hDevice, GX_ENUM_ACQUISITION_FRAME_RATE_MODE , \
+                    GX_ACQUISITION_FRAME_RATE_MODE_ON)");
+
+    // 使能降噪
+    // status = GXSetEnum(hDevice, GX_ENUM_NOISE_REDUCTION_MODE, GX_NOISE_REDUCTION_MODE_ON);
+    // GX_VERIFY(status, "GXSetEnum(hDevice, GX_ENUM_NOISE_REDUCTION_MODE, GX_NOISE_REDUCTION_MODE_ON)");
+    //获取降噪的值
+    // double dNoiseReductionParam = 0.0;
+    // status = GXGetFloat(hDevice, GX_FLOAT_NOISE_REDUCTION,
+    // &dNoiseReductionParam);
+    // std::cout << dNoiseReductionParam << std::endl;
+
     // 开启白平衡模式
     status = GXSetEnum(hDevice, GX_ENUM_BALANCE_WHITE_AUTO, GX_BALANCE_WHITE_AUTO_CONTINUOUS);
     GX_VERIFY(status, "GXSetEnum(hDevice, GX_ENUM_BALANCE_WHITE_AUTO, GX_BALANCE_WHITE_AUTO_CONTINUOUS)");
+
+    // // 获取对比度调节参数
+    // int64_t nContrastParam = 0;
+    // status = GXGetInt(hDevice, GX_INT_CONTRAST_PARAM, &nContrastParam);
+    // GX_VERIFY(status, "GXGetInt(hDevice, GX_INT_CONTRAST_PARAM, &nContrastParam)");
+
+    // // 获取颜色校正调节参数
+    // int64_t nColorCorrectionParam = 0;
+    // status = GXGetInt(hDevice, GX_INT_COLOR_CORRECTION_PARAM, &nColorCorrectionParam);
+    // GX_VERIFY(status, "GXGetInt(hDevice, GX_INT_COLOR_CORRECTION_PARAM, &nColorCorrectionParam)");
+
+    // dGammaParam
 
     // 开启采集流
     status = GXStreamOn(hDevice);
@@ -56,13 +94,7 @@ bool DHCam::Init()
 
     g_pRGBImageBuf = nullptr;     // Memory for RAW8toRGB24
 
-    if (pFrameBuffer->nStatus == GX_FRAME_STATUS_SUCCESS)
-    {
-        VxInt32 emDXStatus = DX_OK;
-        width = pFrameBuffer->nWidth;    // frame width and height
-        height = pFrameBuffer->nHeight;
-        g_pRGBImageBuf = new unsigned char[width * height * 3];  // set RGB image size
-    }
+    g_pRGBImageBuf = new unsigned char[width * height * 3];  // set RGB image size
 
     return true;
 }
@@ -79,7 +111,7 @@ bool DHCam::getImg(cv::Mat &frame)
         VxInt32 emDXStatus = DX_OK;
         // Convert to the RGB image
         emDXStatus = DxRaw8toRGB24(pFrameBuffer->pImgBuf, g_pRGBImageBuf, width, height,
-                        RAW2RGB_NEIGHBOUR, DX_PIXEL_COLOR_FILTER(g_i64ColorFilter), false);
+                        RAW2RGB_NEIGHBOUR3, DX_PIXEL_COLOR_FILTER(g_i64ColorFilter), false);
         if (emDXStatus != DX_OK)    // Convertion is success
         {
             err = std::string("DxRaw8toRGB24 Failed, Error Code: ");
@@ -109,17 +141,17 @@ bool DHCam::setExposureAndGain(bool is_find, double distance)
     {
         if (distance >= 300.0)
         {
-            if ( dExposureTime != 16666.0 && ++frame_cnt % 100 == 0)
+            if ( dExposureTime != 10000.0 && ++frame_cnt % 100 == 0)
             {
-                dExposureTime = 16666.0;
-                dGain = 20.0;
+                dExposureTime = 10000.0;
+                dGain = 16.0;
                 emStatus = GXSetFloat(hDevice, GX_FLOAT_EXPOSURE_TIME, dExposureTime);
                 emStatus = GXSetFloat(hDevice, GX_FLOAT_GAIN, dGain);
             }
         }
         else
         {
-            if (dExposureTime == 16666.0 && ++frame_cnt % 10 == 0)
+            if (dExposureTime == 10000.0 && ++frame_cnt % 10 == 0)
             {
                 dExposureTime = 8333.0;
                 dGain = 12.0;
@@ -130,9 +162,9 @@ bool DHCam::setExposureAndGain(bool is_find, double distance)
     }
     else
     {
-        if (dExposureTime != 16666.00 && ++frame_cnt % 100 == 0)
+        if (dExposureTime != 10000.00 && ++frame_cnt % 100 == 0)
         {
-            dExposureTime = 16666.0;
+            dExposureTime = 10000.0;
             dGain = 12.0;
             emStatus = GXSetFloat(hDevice, GX_FLOAT_EXPOSURE_TIME, dExposureTime);
             emStatus = GXSetFloat(hDevice, GX_FLOAT_GAIN, dGain);

@@ -1,9 +1,12 @@
 %YAML:1.0
 ---
+# 相机获取图片的大小
+Image Width: 1440
+Image Height: 1080
 # 串口设备
 Serial Device: /dev/ttyCH341USB0
 # 敌方 0-蓝方 1-红方
-Enermy: 0
+Enermy: 1
 # 相机参数矩阵
 Camera Matrix: !!opencv-matrix
    rows: 3
@@ -30,9 +33,9 @@ Transform Matrix Camera To PTZ: !!opencv-matrix
    dt: d
    data: [ 0., 0., 0. ]
 # 大装甲板id 从0开始一次为 B1 B2 B3 B4 B5 BO BS ...
-Large Armo ID: [ 0, 7 ]
+Large Armo ID: [ 0, 1, 7, 8 ]
 # 推理后处理的置信度和NMS阈值
-Confidence Threshold: 0.5
+Confidence Threshold: 0.3
 NMS Threshold: 0.5
 # 模型地址
-Engine File Path: "/home/supremacy/Desktop/code/project/res/armo_pose_400n_fp16.engine"
+Engine File Path: "/home/supremacy/Desktop/code/project/res/armo_pose_500s_fp16.engine"

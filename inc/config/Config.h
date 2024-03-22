@@ -46,6 +46,10 @@ public:
     config();
 
 public:
+    // 相机
+    int width;
+    int height;
+
     // 串口
     std::string serial_dev;
     // 目标筛选

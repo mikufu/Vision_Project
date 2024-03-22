@@ -4,6 +4,10 @@ config::config()
 {
     cv::FileStorage fs("/home/supremacy/Desktop/code/project/res/config.yaml", cv::FileStorage::READ);
 
+    // 相机图像大小
+    fs["Image Width"] >> width;
+    fs["Image Height"] >> height;
+
     // 串口设备
     fs["Serial Device"] >> serial_dev;
 

@@ -26,7 +26,7 @@ ProcImg::ProcImg()
     bool is_succeed = false;
 
     // 初始化相机
-    DH = new DHCam();
+    DH = new DHCam(cfg.width, cfg.height);
     is_succeed = DH->Init();
     CHECK_SUCCEED(is_succeed, "DH->Init()");
 
@@ -196,10 +196,10 @@ void ProcImg::getResult()
             // std::cout << "angle : " << "yaw = " << angle[0] << " pitch = " << angle[1] << std::endl;
 
             sd.is_find = 1;
-            sd.pitch.f = angle[0];
-            sd.yaw.f = angle[1];
+            sd.yaw.f = angle[0];
+            sd.pitch.f = angle[1];
             sd.dist.f = dist;
-            // std::cout << "distance : " << dist << std::endl;
+            std::cout << "distance : " << dist << std::endl;
             DH->setExposureAndGain(is_find, dist);
         }
         else

@@ -179,6 +179,8 @@ void serial_port::transformData()
         t_data[2] = 0xFF;   // 数据结束位
     else
     {
+        std::cout << "yaw : " << r_data.yaw.f << std::endl;
+        std::cout << "pitch : " << r_data.pitch.f << std::endl;
         // yaw轴数据
         t_data[2] = r_data.yaw.c[0];
         t_data[3] = r_data.yaw.c[1];
