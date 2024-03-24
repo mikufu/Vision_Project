@@ -28,7 +28,7 @@ Transform Matrix Camera To PTZ: !!opencv-matrix
    rows: 3
    cols: 1
    dt: d
-   data: [ 0., 0., 0. ]
+   data: [ 0., 0., 3.0 ]
 # 大装甲板id 从0开始一次为 B1 B2 B3 B4 B5 BO BS ...
 Large Armo ID: [ 0, 7 ]
 # 推理后处理的置信度和NMS阈值

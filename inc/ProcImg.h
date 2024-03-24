@@ -50,6 +50,7 @@ private:
     std::string FPS;
 
     bool quit;  // 判断是否退出
+    bool is_find;   // 是否找到目标
 
 public:
     ProcImg();
@@ -58,9 +59,9 @@ public:
 
     void readFrame();  // 用于采集图片
 
-    void predictFrame();   // 用于推理
+    void preprocImage();   // 用于推理
 
-    void getResult();   // 获得结果
+    void predictFrame();   // 获得结果
 
     void kalman();  // 接发数据和卡尔曼滤波
 

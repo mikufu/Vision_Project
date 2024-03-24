@@ -48,6 +48,11 @@ public:
         return this->trans;
     }
 
+    cv::Mat get_PTZ_coord()
+    {
+        return this->PTZ_coord;
+    }
+
     double get_distance()
     {
         dist = sqrt(trans.at<double>(0, 0) * trans.at<double>(0, 0) 

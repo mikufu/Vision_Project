@@ -3,8 +3,8 @@
 #include "Inference.hpp"
 
 // #define ENERMY 1    // 0表示敌方为蓝，1表示敌方为红
-#define MAX_COUNT 3 // 切换目标所等待的帧数
-#define MIN_AREA 1000   
+#define MAX_COUNT 10 // 切换目标所等待的帧数
+#define MIN_AREA 100
 
 class target
 {

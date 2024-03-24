@@ -158,32 +158,10 @@ iostream
 opencv2/core/mat.hpp
 -
 
-/home/supremacy/Desktop/code/project/main.cpp
-iostream
--
-opencv2/opencv.hpp
--
-opencv2/cudaimgproc.hpp
--
-cuda_runtime.h
--
-ProcImg.h
-/home/supremacy/Desktop/code/project/ProcImg.h
-
 /home/supremacy/Desktop/code/project/src/ProcImg.cpp
 ProcImg.h
 /home/supremacy/Desktop/code/project/src/ProcImg.h
 opencv2/opencv.hpp
--
-
-/home/supremacy/Desktop/code/project/src/camera/DHCamera.cpp
-DHCamera.hpp
-/home/supremacy/Desktop/code/project/src/camera/DHCamera.hpp
-
-/home/supremacy/Desktop/code/project/src/solver/SolvePosition.cpp
-SolvePosition.hpp
--
-opencv2/calib3d.hpp
 -
 
 /usr/local/cuda-11.4/include/builtin_types.h
