@@ -23,6 +23,8 @@ opencv2/cudaimgproc.hpp
 -
 opencv2/cudawarping.hpp
 -
+opencv2/video/tracking.hpp
+-
 Config.h
 ../inc/Config.h
 DHCamera.hpp
@@ -129,6 +131,8 @@ string
 ../inc/serial/Serial.hpp
 iostream
 -
+vector
+-
 sys/types.h
 -
 unistd.h
@@ -175,6 +179,12 @@ opencv2/opencv.hpp
 /home/supremacy/Desktop/code/project/src/camera/DHCamera.cpp
 DHCamera.hpp
 /home/supremacy/Desktop/code/project/src/camera/DHCamera.hpp
+
+/home/supremacy/Desktop/code/project/src/solver/SolvePosition.cpp
+SolvePosition.hpp
+-
+opencv2/calib3d.hpp
+-
 
 /usr/local/cuda-11.4/include/builtin_types.h
 device_types.h

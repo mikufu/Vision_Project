@@ -47,9 +47,39 @@ void serial_port::sendData(const Serial_Data &data)
     write(fd, t_data, bytes);
 }
 
-void serial_port::readData()
+void serial_port::readData(std::vector<float> &angle)
 {
+    Serial_Data sd;
+    unsigned char i_buffer[20] = {0};
+    int ret = read(fd, i_buffer, sizeof(i_buffer));
+    if (ret > 0)
+    {
+        int i;
+        for (i = 0; i < ret && i_buffer[i] != 0xA5; i++)
+            ;
 
+        if (i_buffer[i] == 0xA5 && i + 9 < 20 && i_buffer[i + 9] == 0xFF)
+        {
+            sd.yaw.c[0] = i_buffer[++i];
+            sd.yaw.c[1] = i_buffer[++i];
+            sd.yaw.c[2] = i_buffer[++i];
+            sd.yaw.c[3] = i_buffer[++i];
+            sd.pitch.c[0] = i_buffer[++i];
+            sd.pitch.c[1] = i_buffer[++i];
+            sd.pitch.c[2] = i_buffer[++i];
+            sd.pitch.c[3] = i_buffer[++i];
+            angle.emplace_back(sd.yaw.f);
+            angle.emplace_back(sd.pitch.f);
+
+#ifdef SERIAL_DEBUG
+            printf("yaw = %f pitch = %f\n", sd.yaw.f, sd.pitch.f);
+#endif
+        }
+    }
+    else
+    {
+        usleep(1000);
+    }
 }
 
 bool serial_port::set_Baud()

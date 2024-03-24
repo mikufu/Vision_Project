@@ -9,6 +9,7 @@
 #include <opencv2/core/cuda.hpp>
 #include <opencv2/cudaimgproc.hpp>
 #include <opencv2/cudawarping.hpp>
+#include <opencv2/video/tracking.hpp>
 #include "Config.h"
 #include "DHCamera.hpp"
 #include "Inference.hpp"
@@ -60,6 +61,8 @@ public:
     void predictFrame();   // 用于推理
 
     void getResult();   // 获得结果
+
+    void kalman();  // 接发数据和卡尔曼滤波
 
     void show();    // 显示结果
 };

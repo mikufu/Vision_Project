@@ -44,7 +44,7 @@ private:
 
 public:
     //init camera
-    DHCam(const double exposure = 16666.0, const double gain = 12.0) :
+    DHCam(const double exposure = 10000.0, const double gain = 12.0) :
         dExposureTime(exposure), 
         dGain(gain)
     {

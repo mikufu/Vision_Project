@@ -4,7 +4,7 @@
 const int Buffer_Size = 1;
 // 每个线程所需要的缓存
 std::queue<cv::Mat> t1_frames;
-std::queue<float *> t2_buffers;
+std::queue<void *> t2_buffers;
 std::queue<std::vector<result>> t3_item;
 std::queue<cv::Mat> t_show;
 // 每个线程的互斥锁
@@ -127,18 +127,6 @@ void ProcImg::predictFrame()
     );
 #endif
 
-#ifdef TIME
-    COST_TIME(
-#endif
-
-        void *input_data = mfloat.ptr<void>(0);
-        output_data = this->infer->predict(input_data); // 预测
-
-#ifdef TIME
-        , "predict"
-    );
-#endif
-
         {
             // 互斥锁
             std::unique_lock<std::mutex> lock2(t2_mutex);
@@ -147,7 +135,8 @@ void ProcImg::predictFrame()
                 return t2_buffers.size() < Buffer_Size;
             });
             // 增加一个元素
-            t2_buffers.push(output_data);
+            void *input_data = mfloat.ptr<void>(0);
+            t2_buffers.push(input_data);
             // 通知下一线程开始
             t2_not_empty.notify_one();
         }
@@ -156,6 +145,7 @@ void ProcImg::predictFrame()
 
 void ProcImg::getResult()
 {
+    void *input_data;
     float *output_data;
     std::vector<result> res;
     double time = 0;
@@ -170,7 +160,7 @@ void ProcImg::getResult()
                 return !t2_buffers.empty();
             });
             // 取出一个元素
-            output_data = t2_buffers.front();
+            input_data = t2_buffers.front();
             t2_buffers.pop();
             // 通知上一线程开始
             t2_not_full.notify_one();
@@ -178,6 +168,17 @@ void ProcImg::getResult()
 
 #ifdef TIME
     COST_TIME(
+#endif
+
+#ifdef TIME
+    COST_TIME(
+#endif
+
+        output_data = this->infer->predict(input_data); // 预测
+
+#ifdef TIME
+        , "predict"
+    );
 #endif
 
         this->infer->postprocess(output_data);
@@ -196,8 +197,8 @@ void ProcImg::getResult()
             // std::cout << "angle : " << "yaw = " << angle[0] << " pitch = " << angle[1] << std::endl;
 
             sd.is_find = 1;
-            sd.pitch.f = angle[0];
-            sd.yaw.f = angle[1];
+            sd.yaw.f = angle[0];
+            sd.pitch.f = angle[1];
             sd.dist.f = dist;
             // std::cout << "distance : " << dist << std::endl;
             DH->setExposureAndGain(is_find, dist);
@@ -248,6 +249,11 @@ void ProcImg::getResult()
         }
 #endif
     }
+}
+
+void ProcImg::kalman()
+{
+
 }
 
 void ProcImg::show()

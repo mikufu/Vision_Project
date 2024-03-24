@@ -107,22 +107,22 @@ bool DHCam::setExposureAndGain(bool is_find, double distance)
     GX_STATUS emStatus;
     if (is_find)
     {
-        if (distance >= 300.0)
+        if (distance >= 400.0)
         {
-            if ( dExposureTime != 16666.0 && ++frame_cnt % 100 == 0)
+            if ( dExposureTime != 10000.0 && ++frame_cnt % 100 == 0)
             {
-                dExposureTime = 16666.0;
-                dGain = 20.0;
+                dExposureTime = 10000.0;
+                dGain = 12.0;
                 emStatus = GXSetFloat(hDevice, GX_FLOAT_EXPOSURE_TIME, dExposureTime);
                 emStatus = GXSetFloat(hDevice, GX_FLOAT_GAIN, dGain);
             }
         }
         else
         {
-            if (dExposureTime == 16666.0 && ++frame_cnt % 10 == 0)
+            if (dExposureTime == 10000.0 && ++frame_cnt % 10 == 0)
             {
                 dExposureTime = 8333.0;
-                dGain = 12.0;
+                dGain = 20.0;
                 emStatus = GXSetFloat(hDevice, GX_FLOAT_EXPOSURE_TIME, dExposureTime);
                 emStatus = GXSetFloat(hDevice, GX_FLOAT_GAIN, dGain);
             }
@@ -130,9 +130,9 @@ bool DHCam::setExposureAndGain(bool is_find, double distance)
     }
     else
     {
-        if (dExposureTime != 16666.00 && ++frame_cnt % 100 == 0)
+        if (dExposureTime != 10000.00 && ++frame_cnt % 100 == 0)
         {
-            dExposureTime = 16666.0;
+            dExposureTime = 10000.0;
             dGain = 12.0;
             emStatus = GXSetFloat(hDevice, GX_FLOAT_EXPOSURE_TIME, dExposureTime);
             emStatus = GXSetFloat(hDevice, GX_FLOAT_GAIN, dGain);

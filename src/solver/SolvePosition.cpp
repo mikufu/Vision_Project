@@ -32,8 +32,8 @@ std::vector<float> solvePos::getAngle(const std::vector<cv::Point2f> &image_poin
     double y = PTZ_coord.at<double>(1, 0);
     double z = PTZ_coord.at<double>(2, 0);
 
-    float yaw = atan(x / z) * (180 / PI);
-    float pitch = atan(y / z) * (180 / PI);
+    float yaw = atan(x / z);
+    float pitch = atan(y / z);
 
     std::vector<float> angle = {yaw, pitch};
     return angle;

@@ -2,6 +2,7 @@
 #define __SERIAL_H_
 
 #include <iostream>
+#include <vector>
 #include <sys/types.h>
 #include <unistd.h>
 #include <sys/stat.h>
@@ -48,7 +49,7 @@ public:
 
     void sendData(const Serial_Data &data);    // 发送数据
 
-    void readData();    // 接收数据
+    void readData(std::vector<float> &angle);    // 接收数据
 private:
     bool set_Baud();    // 设置波特率
 

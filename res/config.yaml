@@ -32,7 +32,7 @@ Transform Matrix Camera To PTZ: !!opencv-matrix
 # 大装甲板id 从0开始一次为 B1 B2 B3 B4 B5 BO BS ...
 Large Armo ID: [ 0, 7 ]
 # 推理后处理的置信度和NMS阈值
-Confidence Threshold: 0.5
+Confidence Threshold: 0.3
 NMS Threshold: 0.5
 # 模型地址
 Engine File Path: "/home/supremacy/Desktop/code/project/res/armo_pose_400n_fp16.engine"
