@@ -50,7 +50,6 @@ private:
     std::string FPS;
 
     bool quit;  // 判断是否退出
-    bool is_find;   // 是否找到目标
 
 public:
     ProcImg();

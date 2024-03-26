@@ -121,7 +121,7 @@ bool DHCam::setExposureAndGain(bool is_find, double distance)
         {
             if (dExposureTime == 10000.0 && ++frame_cnt % 10 == 0)
             {
-                dExposureTime = 8333.0;
+                dExposureTime = 5000.0;
                 dGain = 20.0;
                 emStatus = GXSetFloat(hDevice, GX_FLOAT_EXPOSURE_TIME, dExposureTime);
                 emStatus = GXSetFloat(hDevice, GX_FLOAT_GAIN, dGain);

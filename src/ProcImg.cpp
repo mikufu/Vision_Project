@@ -1,6 +1,7 @@
 #include "ProcImg.h"
 #include <opencv2/opencv.hpp>
 
+volatile bool is_find;
 const int Buffer_Size = 1;
 // 每个线程所需要的缓存
 std::queue<cv::Mat> t1_frames;
@@ -182,7 +183,7 @@ void ProcImg::predictFrame()
     );
 #endif
 
-        this->infer->postprocess(output_data);
+        this->infer->postprocess(output_data);  // 后处理
         res = this->infer->get_results();
         delete output_data;
 
@@ -255,13 +256,25 @@ void ProcImg::kalman()
 
     while (true)
     {
-        if (is_find)
+        // std::cout << "is_find : " << is_find << std::endl;
+#ifdef TIME
+    COST_TIME(
+#endif
+        if (is_find == true)
         {
+            // std::cout << "kalman1" << std::endl;
             auto t = targ->get_target();
-            std::cout << t.kpoints.empty() << std::endl;
             auto angle = sol->getAngle(t.kpoints, t.class_id);
             float dist = sol->get_distance();
             DH->setExposureAndGain(is_find, dist);  // 根据目标动态调整相机曝光和增益
+
+            Serial_Data sd;
+            sd.is_find = true;
+            sd.yaw.f = angle[0];
+            sd.pitch.f = angle[1];
+            sd.dist.f = dist;
+            ser->sendData(sd);
+
             auto PTZ_coord = sol->get_PTZ_coord();
             std::vector<float> PTZ_angle;
             ser->readData(PTZ_angle);
@@ -303,13 +316,17 @@ void ProcImg::kalman()
             {
                 cnt = 0;
                 last_find = false;
+                DH->setExposureAndGain();
             }
-            DH->setExposureAndGain();
+            Serial_Data sd;
+            sd.is_find = 0;
+            ser->sendData(sd);
         }
         is_find = false;
         // 卡尔曼预测以及收发数据
         while (is_find == false && last_find == true)
         {
+            std::cout << "kalman3" << std::endl;
             cv::Mat coord = kf.predict();
             double x = coord.at<double>(0, 0);
             double y = coord.at<double>(1, 0);
@@ -326,7 +343,11 @@ void ProcImg::kalman()
                 ser->sendData(sd);
             }
         }
-
+#ifdef TIME
+        , "kalman"
+    );
+#endif
+        usleep(1000);
     }
 }
 

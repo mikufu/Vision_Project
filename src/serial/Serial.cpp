@@ -52,6 +52,7 @@ void serial_port::readData(std::vector<float> &angle)
     Serial_Data sd;
     unsigned char i_buffer[20] = {0};
     int ret = read(fd, i_buffer, sizeof(i_buffer));
+    // std::cout << "ret : " << ret <<std::endl;
     if (ret > 0)
     {
         int i;

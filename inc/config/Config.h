@@ -5,7 +5,7 @@
 #include <opencv2/core/mat.hpp>
 #include <opencv2/core/persistence.hpp>
 
-#define SHOW_OUTPUT
+// #define SHOW_OUTPUT
 #define SHOW_FPS
 // #define TIME
 // #define SERIAL_DEBUG
