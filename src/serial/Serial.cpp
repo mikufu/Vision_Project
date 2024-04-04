@@ -45,14 +45,17 @@ void serial_port::sendData(const Serial_Data &data)
         bytes = 15;
 
     write(fd, t_data, bytes);
+
+#ifdef SERIAL_DEBUG
+    std::cout << "send data finish!" << std::endl;
+#endif
 }
 
 void serial_port::readData(std::vector<float> &angle)
 {
     Serial_Data sd;
-    unsigned char i_buffer[20] = {0};
+    unsigned char i_buffer[128] = {0};
     int ret = read(fd, i_buffer, sizeof(i_buffer));
-    // std::cout << "ret : " << ret <<std::endl;
     if (ret > 0)
     {
         int i;
@@ -73,13 +76,10 @@ void serial_port::readData(std::vector<float> &angle)
             angle.emplace_back(sd.pitch.f);
 
 #ifdef SERIAL_DEBUG
+            std::cout << "ret : " << ret <<std::endl;
             printf("yaw = %f pitch = %f\n", sd.yaw.f, sd.pitch.f);
 #endif
         }
-    }
-    else
-    {
-        usleep(1000);
     }
 }
 
@@ -230,20 +230,20 @@ void serial_port::transformData()
     }
 
 #ifdef SERIAL_DEBUG
-    if (t_data[1] == 0)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            printf("%x ", t_data[i]);
-        }
-    }
-    else
-    {
-        for (int i = 0; i < 15; i++)
-        {
-            printf("%x ", t_data[i]);
-        }
-    }
-    printf("\n");
+    // if (t_data[1] == 0)
+    // {
+    //     for (int i = 0; i < 3; i++)
+    //     {
+    //         printf("%x ", t_data[i]);
+    //     }
+    // }
+    // else
+    // {
+    //     for (int i = 0; i < 15; i++)
+    //     {
+    //         printf("%x ", t_data[i]);
+    //     }
+    // }
+    // printf("\n");
 #endif
 }

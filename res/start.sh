@@ -1,1 +1,0 @@
-sudo jetson_clocks

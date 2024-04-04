@@ -6,7 +6,7 @@
 #include <opencv2/core/persistence.hpp>
 
 // #define SHOW_OUTPUT
-#define SHOW_FPS
+// #define SHOW_FPS
 // #define TIME
 // #define SERIAL_DEBUG
 #define CPU_PREPROCESS

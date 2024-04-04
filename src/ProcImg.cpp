@@ -151,6 +151,32 @@ void ProcImg::predictFrame()
     float *output_data;
     std::vector<result> res;
     double time = 0;
+
+    bool last_find = false;
+    unsigned int cnt = 0;
+    cv::KalmanFilter kf(6, 3);
+    // 状态转移矩阵A
+    kf.transitionMatrix = (cv::Mat_<double>(6, 6) << 1, 0, 0, 1, 0, 0,
+                                                     0, 1, 0, 0, 1, 0,
+                                                     0, 0, 1, 0, 0, 1,
+                                                     0, 0, 0, 1, 0, 0,
+                                                     0, 0, 0, 0, 1, 0,
+                                                     0, 0, 0, 0, 0, 1);
+    // 测量矩阵H
+    kf.measurementMatrix = (cv::Mat_<double>(3, 6) << 1, 0, 0, 0, 0, 0,
+                                                      0, 1, 0, 0, 0, 0,
+                                                      0, 0, 1, 0, 0, 0);
+    // 系统噪声协方差矩阵Q
+    kf.processNoiseCov = (cv::Mat_<double>(6, 6) << 1, 0, 0, 0, 0, 0,
+                                                     0, 1, 0, 0, 0, 0,
+                                                     0, 0, 1, 0, 0, 0,
+                                                     0, 0, 0, 1, 0, 0,
+                                                     0, 0, 0, 0, 1, 0,
+                                                     0, 0, 0, 0, 0, 1) * 1e-5;
+    // 测量噪声协方差矩阵R
+    kf.measurementNoiseCov = (cv::Mat_<double>(3, 3) << 1, 0, 0,
+                                                        0, 1, 0,
+                                                        0, 0, 1) * 1e-1;
     while (true)
     {
         // 使用{} 限制作用域，否则锁会在一次循环结束后才释放
@@ -187,9 +213,96 @@ void ProcImg::predictFrame()
         res = this->infer->get_results();
         delete output_data;
 
-        while (is_find == true)
-            ;
         is_find = targ->select(res);
+        if (is_find == true)
+        {
+            auto t = targ->get_target();
+            auto angle = sol->getAngle(t.kpoints, t.class_id);
+            float dist = sol->get_distance();
+
+            Serial_Data sd;
+            sd.is_find = 1;
+            sd.yaw.f = angle[0];
+            sd.pitch.f = angle[1];
+            sd.dist.f = dist;
+            ser->sendData(sd);
+
+        //     auto PTZ_coord = sol->get_PTZ_coord();
+        //     std::vector<float> PTZ_angle;
+        //     ser->readData(PTZ_angle);
+
+        //     if (!PTZ_angle.empty())
+        //     {
+        //         float yaw = PTZ_angle[0];
+        //         float pitch = PTZ_angle[1];
+        //         // 将枪口坐标系转换为云台坐标系
+        //         cv::Mat rotate_x = (cv::Mat_<double>(3, 3) << 1, 0, 0,
+        //                                                     0, cos(pitch), sin(pitch),
+        //                                                     0, -sin(pitch), cos(pitch));
+        //         cv::Mat rotate_y = (cv::Mat_<double>(3, 3) << cos(yaw), 0, -sin(yaw),
+        //                                                     0, 1, 0,
+        //                                                     sin(yaw), 0, cos(yaw));
+        //         cv::Mat coord = rotate_x * rotate_y * PTZ_coord;
+        //         // 设置后验状态估计向量和后验估计协方差或更新参数
+        //         if (last_find == true)
+        //         {
+        //             kf.correct(coord);
+        //             // std::cout << "correct finish!" << std::endl;
+        //         }
+        //         else
+        //         {
+        //             kf.errorCovPost = (cv::Mat_<double>(6, 6) << 1, 0, 0, 0, 0, 0,
+        //                                                             0, 1, 0, 0, 0, 0,
+        //                                                             0, 0, 1, 0, 0, 0,
+        //                                                             0, 0, 0, 1, 0, 0,
+        //                                                             0, 0, 0, 0, 1, 0,
+        //                                                             0, 0, 0, 0, 0, 1) ;
+        //             // std::cout << "errorCovPost=" << kf.errorCovPost << std::endl;
+        //             kf.statePost = (cv::Mat_<double>(6, 1) << coord.at<double>(0, 0),
+        //                                                         coord.at<double>(1, 0),
+        //                                                         coord.at<double>(2, 0),
+        //                                                         0, 0, 0);
+        //             // std::cout << "statePost=" << kf.statePost << std::endl;
+        //             // std::cout << "statePost finish!" << std::endl;
+        //             last_find = true;
+        //         }
+
+        //         coord = kf.predict();
+        //         // std::cout << "kalman.predict() finish!" << std::endl;
+
+        //         PTZ_angle.clear();
+        //         ser->readData(PTZ_angle);
+        //         if (!PTZ_angle.empty())
+        //         {
+        //             // 将云台坐标系转换为枪口坐标系
+        //             float yaw = PTZ_angle[0];
+        //             float pitch = PTZ_angle[1];
+        //             cv::Mat rotate_x = (cv::Mat_<double>(3, 3) << 1, 0, 0,
+        //                                                         0, cos(pitch), -sin(pitch),
+        //                                                         0, sin(pitch), cos(pitch));
+        //             cv::Mat rotate_y = (cv::Mat_<double>(3, 3) << cos(yaw), 0, sin(yaw),
+        //                                                         0, 1, 0,
+        //                                                         -sin(yaw), 0, cos(yaw));
+        //             coord = rotate_x * rotate_y * coord;
+
+        //             double x = coord.at<double>(0, 0);
+        //             double y = coord.at<double>(1, 0);
+        //             double z = coord.at<double>(2, 0);
+
+        //             sd.is_find = 1;
+        //             sd.yaw.f = atan(x / z);
+        //             sd.pitch.f = atan(y / z);
+        //             sd.dist.f = sqrt(x * x + y * y + z * z);
+        //             ser->sendData(sd);
+        //         }
+        //     }
+        // }
+        // else
+        // {
+        //     Serial_Data sd;
+        //     sd.is_find = 0;
+        //     ser->sendData(sd);
+        }
 
         this->end = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(this->end - this->start);
@@ -237,7 +350,7 @@ void ProcImg::kalman()
     // std::cout << "is_find : " << is_find << std::endl;
     bool last_find = false;
     unsigned int cnt = 0;
-    cv::KalmanFilter kf(6, 3, 0);
+    cv::KalmanFilter kf(6, 3);
     // 状态转移矩阵A
     kf.transitionMatrix = (cv::Mat_<double>(6, 6) << 1, 0, 0, 1, 0, 0,
                                                      0, 1, 0, 0, 1, 0,
@@ -250,9 +363,16 @@ void ProcImg::kalman()
                                                       0, 1, 0, 0, 0, 0,
                                                       0, 0, 1, 0, 0, 0);
     // 系统噪声协方差矩阵Q
-    cv::setIdentity(kf.processNoiseCov, cv::Scalar::all(1e-3));
+    kf.processNoiseCov = (cv::Mat_<double>(6, 6) << 1, 0, 0, 0, 0, 0,
+                                                     0, 1, 0, 0, 0, 0,
+                                                     0, 0, 1, 0, 0, 0,
+                                                     0, 0, 0, 1, 0, 0,
+                                                     0, 0, 0, 0, 1, 0,
+                                                     0, 0, 0, 0, 0, 1) * 1e-5;
     // 测量噪声协方差矩阵R
-    cv::setIdentity(kf.measurementNoiseCov, cv::Scalar::all(1e-1));
+    kf.measurementNoiseCov = (cv::Mat_<double>(3, 3) << 1, 0, 0,
+                                                        0, 1, 0,
+                                                        0, 0, 1) * 1e-1;
 
     while (true)
     {
@@ -262,14 +382,13 @@ void ProcImg::kalman()
 #endif
         if (is_find == true)
         {
-            // std::cout << "kalman1" << std::endl;
             auto t = targ->get_target();
             auto angle = sol->getAngle(t.kpoints, t.class_id);
             float dist = sol->get_distance();
             DH->setExposureAndGain(is_find, dist);  // 根据目标动态调整相机曝光和增益
 
             Serial_Data sd;
-            sd.is_find = true;
+            sd.is_find = 1;
             sd.yaw.f = angle[0];
             sd.pitch.f = angle[1];
             sd.dist.f = dist;
@@ -294,14 +413,23 @@ void ProcImg::kalman()
                 if (last_find == true)
                 {
                     kf.correct(coord);
+                    std::cout << "correct finish!" << std::endl;
                 }
                 else
                 {
-                    cv::setIdentity(kf.errorCovPost, cv::Scalar::all(1));
+                    kf.errorCovPost = (cv::Mat_<double>(6, 6) << 1, 0, 0, 0, 0, 0,
+                                                                 0, 1, 0, 0, 0, 0,
+                                                                 0, 0, 1, 0, 0, 0,
+                                                                 0, 0, 0, 1, 0, 0,
+                                                                 0, 0, 0, 0, 1, 0,
+                                                                 0, 0, 0, 0, 0, 1) ;
+                    // std::cout << "errorCovPost=" << kf.errorCovPost << std::endl;
                     kf.statePost = (cv::Mat_<double>(6, 1) << coord.at<double>(0, 0),
                                                               coord.at<double>(1, 0),
                                                               coord.at<double>(2, 0),
                                                               0, 0, 0);
+                    // std::cout << "statePost=" << kf.statePost << std::endl;
+                    // std::cout << "statePost finish!" << std::endl;
                     last_find = true;
                 }
             }
@@ -317,31 +445,66 @@ void ProcImg::kalman()
                 cnt = 0;
                 last_find = false;
                 DH->setExposureAndGain();
+
+                Serial_Data sd;
+                sd.is_find = 0;
+                ser->sendData(sd);
+                std::vector<float> PTZ_angle;
+                ser->readData(PTZ_angle);   // 读取数据清除缓存
             }
-            Serial_Data sd;
-            sd.is_find = 0;
-            ser->sendData(sd);
         }
         is_find = false;
         // 卡尔曼预测以及收发数据
+        if (last_find == true)
+        {
+            auto PTZ_coord = sol->get_PTZ_coord();
+            double x = PTZ_coord.at<double>(0, 0);
+            double y = PTZ_coord.at<double>(1, 0);
+            double z = PTZ_coord.at<double>(2, 0);
+            Serial_Data sd;
+            sd.is_find = 1;
+            sd.yaw.f = atan(x / z);
+            sd.pitch.f = atan(y / z);
+            sd.dist.f = sqrt(x * x + y * y + z * z);
+            ser->sendData(sd);
+        }
+        auto t1 = std::chrono::high_resolution_clock::now();
         while (is_find == false && last_find == true)
         {
-            std::cout << "kalman3" << std::endl;
             cv::Mat coord = kf.predict();
-            double x = coord.at<double>(0, 0);
-            double y = coord.at<double>(1, 0);
-            double z = coord.at<double>(2, 0);
+            // std::cout << "kalman.predict() finish!" << std::endl;
+
             std::vector<float> PTZ_angle;
             ser->readData(PTZ_angle);
             if (!PTZ_angle.empty())
             {
+                // 将云台坐标系转换为枪口坐标系
+                float yaw = PTZ_angle[0];
+                float pitch = PTZ_angle[1];
+                cv::Mat rotate_x = (cv::Mat_<double>(3, 3) << 1, 0, 0,
+                                                            0, cos(pitch), -sin(pitch),
+                                                            0, sin(pitch), cos(pitch));
+                cv::Mat rotate_y = (cv::Mat_<double>(3, 3) << cos(yaw), 0, sin(yaw),
+                                                            0, 1, 0,
+                                                            -sin(yaw), 0, cos(yaw));
+                coord = rotate_x * rotate_y * coord;
+
+                double x = coord.at<double>(0, 0);
+                double y = coord.at<double>(1, 0);
+                double z = coord.at<double>(2, 0);
+
                 Serial_Data sd;
                 sd.is_find = 1;
-                sd.yaw.f = atan(x / z) - PTZ_angle[0];
-                sd.pitch.f = atan(y / z) - PTZ_angle[1];
+                sd.yaw.f = atan(x / z);
+                sd.pitch.f = atan(y / z);
                 sd.dist.f = sqrt(x * x + y * y + z * z);
                 ser->sendData(sd);
             }
+            usleep(1000);
+            auto t2 = std::chrono::high_resolution_clock::now();
+            auto time = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
+            if (time.count() >= 1e5)
+                break;
         }
 #ifdef TIME
         , "kalman"
