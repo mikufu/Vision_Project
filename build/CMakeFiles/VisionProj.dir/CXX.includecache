@@ -176,6 +176,10 @@ ProcImg.h
 opencv2/opencv.hpp
 -
 
+/home/supremacy/Desktop/code/project/src/camera/DHCamera.cpp
+DHCamera.hpp
+/home/supremacy/Desktop/code/project/src/camera/DHCamera.hpp
+
 /home/supremacy/Desktop/code/project/src/config/Config.cpp
 Config.h
 /home/supremacy/Desktop/code/project/src/config/Config.h
@@ -191,10 +195,6 @@ Serial.hpp
 /home/supremacy/Desktop/code/project/src/serial/Serial.hpp
 Config.h
 /home/supremacy/Desktop/code/project/src/serial/Config.h
-
-/home/supremacy/Desktop/code/project/src/solver/SelectTarget.cpp
-SelectTarget.hpp
-/home/supremacy/Desktop/code/project/src/solver/SelectTarget.hpp
 
 /usr/local/cuda-11.4/include/builtin_types.h
 device_types.h
